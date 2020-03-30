@@ -1,0 +1,51 @@
+{
+    "name":"My ColdBox App",
+    "version":"0.0.1",
+    "location":"",
+    "author":"Ortus Solutions, Corp",
+    "slug":"wpscanner",
+    "shortDescription":"A ColdBox application template that leverages ColdBox Elixir for assets and VueJS for UI",
+    "createPackageDirectory":false,
+    "type":"mvc",
+    "keywords":"coldbox,scanner",
+    "homepage":"https://github.com/Tropicalista/wpscanner",
+    "documentation":"https://github.com/Tropicalista/wpscanner",
+    "repository":{
+        "type":"git",
+        "url":"https://github.com/Tropicalista/wpscanner"
+    },
+    "bugs":"https://github.com/Tropicalista/wpscanner/issues",
+    "contributors":[],
+    "ignore":[
+        "readme.md"
+    ],
+    "devDependencies":{
+        "testbox":"^3.0.0"
+    },
+    "installPaths":{
+        "coldbox":"coldbox/",
+        "testbox":"testbox/",
+        "hyper":"modules/hyper",
+        "quick":"modules/quick"
+    },
+    "cfmigrations": {
+        "defaultGrammar": "AutoDiscover@qb",
+        "schema": "${DB_SCHEMA}",
+        "connectionInfo": {
+            "class": "${DB_CLASS}",
+            "connectionString": "${DB_CONNECTIONSTRING}",
+            "username": "${DB_USER}",
+            "password": "${DB_PASSWORD}"
+        }
+    },
+    "dependencies":{
+        "coldbox":"^5.0.0",
+        "hyper":"^2.1.1",
+        "quick":"^2.5.7"
+    },
+    "scripts":{
+        "postVersion":"package set location='Tropicalista/wpscanner#v`package version`'",
+        "onRelease":"publish",
+        "postPublish":"!git push && git push --tags"
+    }
+}

@@ -1,0 +1,1 @@
+node F:\Apps\WpScanner\resources\assets\js\wappalyzer
