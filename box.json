@@ -1,7 +1,7 @@
 {
     "name":"My ColdBox App",
-    "version":"0.1.0",
-    "location":"Tropicalista/wpscanner#v0.1.0",
+    "version":"0.2.0",
+    "location":"Tropicalista/wpscanner#v0.2.0",
     "author":"Ortus Solutions, Corp",
     "slug":"wpscanner",
     "shortDescription":"A ColdBox application template that leverages ColdBox Elixir for assets and VueJS for UI",
