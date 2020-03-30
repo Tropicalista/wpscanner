@@ -15,9 +15,9 @@
 
 			//Implicit Events
 			defaultEvent			= "",
-			requestStartHandler		= "Main.onRequestStart",
+			requestStartHandler		= "Home.onRequestStart",
 			requestEndHandler		= "",
-			applicationStartHandler = "Main.onAppInit",
+			applicationStartHandler = "Home.onAppInit",
 			applicationEndHandler	= "",
 			sessionStartHandler 	= "",
 			sessionEndHandler		= "",
@@ -35,7 +35,7 @@
 
 			//Error/Exception Handling
 			invalidHTTPMethodHandler = "",
-			exceptionHandler		= "main.onException",
+			exceptionHandler		= "Home.onException",
 			invalidEventHandler			= "",
 			customErrorTemplate		= "",
 
