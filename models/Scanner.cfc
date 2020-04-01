@@ -4,6 +4,7 @@
 component accessors="true"{
 
     property name="hyper" inject="HyperBuilder@Hyper";
+    property name="parser" inject="UrlParser";
 	
 	/**
 	 * Constructor
@@ -20,6 +21,42 @@ component accessors="true"{
 		var res = hyper.get( arguments.myUrl );
 
 		return res;
+	}
+
+	/**
+	 * If there's no protocol add default one
+	 */
+	function sanitizeUrl( required myUrl ){
+		var domain = parser.isValid(arguments.myUrl);
+		dump(domain);
+		abort;
+		var protocol = rematch( "^(?:https?:)?(?:\/\/)", arguments.myUrl );
+		if( !len( protocol ) ){
+			arguments.myUrl = "http://" & arguments.myUrl;
+		}
+		if( !isValidUrl( arguments.myUrl) ){
+			throw( "Invalid URL" );
+		}
+
+		return arguments.myUrl;
+	}
+
+	/**
+	 * Validate URL
+	 */
+	function isValidUrl( required myUrl ){
+		// check to see if has an extension, we don't validate localhost
+		if( !hasExtension( arguments.myUrl ) ){
+			throw( "Invalid URL" );
+		}
+		return len( reMatchNoCase( "^https?://([^\/:]+)[\w\W]*$", arguments.myUrl ) ) ? true : false;
+	}
+
+	/**
+	 * Check if url provided has an extension
+	 */
+	function hasExtension( required myUrl ){
+		return find( ".", arguments.myUrl );
 	}
 
 	/**

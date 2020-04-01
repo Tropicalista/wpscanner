@@ -3,11 +3,15 @@ module.exports = class detectWP {
     
     static getTheme(body) {
 
-        return body.match(/\/themes\/[a-z-0-9]+\/\S+.css/ig);
+        let theme = {};
 
-        //if ( theme !== null && theme[0] )  return  theme[0].replace('/themes/','').replace('/','');
+        theme.css = body.match(/\/themes\/[a-z-0-9]+\/\S+.css/ig);
 
-        return null; 
+        let slug = /\/themes\/(?<=\/)(.*?)(?=\/)/.exec(body);
+
+        if ( slug !== null && slug[0] )  theme.slug = slug[0].replace('/themes/','').replace('/','');
+
+        return theme; 
 
     }
 

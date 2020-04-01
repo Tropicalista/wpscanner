@@ -1,51 +1,36 @@
 {
-    "name":"My ColdBox App",
-    "version":"0.2.0",
-    "location":"Tropicalista/wpscanner#v0.2.0",
-    "author":"Ortus Solutions, Corp",
-    "slug":"wpscanner",
-    "shortDescription":"A ColdBox application template that leverages ColdBox Elixir for assets and VueJS for UI",
-    "createPackageDirectory":false,
-    "type":"mvc",
-    "keywords":"coldbox,scanner",
-    "homepage":"https://github.com/Tropicalista/wpscanner",
-    "documentation":"https://github.com/Tropicalista/wpscanner",
+    "name":"myCoolModule",
+    "version":"0.0.0",
+    "author":"",
+    "location":"Tropicalista/myCoolModule#v0.0.0",
+    "homepage":"https://github.com/Tropicalista/myCoolModule",
+    "documentation":"https://github.com/Tropicalista/myCoolModule",
     "repository":{
         "type":"git",
-        "url":"https://github.com/Tropicalista/wpscanner"
+        "URL":"https://github.com/Tropicalista/myCoolModule"
     },
-    "bugs":"https://github.com/Tropicalista/wpscanner/issues",
-    "contributors":[],
-    "ignore":[
-        "readme.md"
-    ],
+    "bugs":"https://github.com/Tropicalista/myCoolModule/issues",
+    "slug":"myCoolModule",
+    "shortDescription":"Short Module Description",
+    "description":"Short Module Description",
+    "type":"modules",
+    "dependencies":{},
     "devDependencies":{
+        "coldbox":"^5.0.0",
         "testbox":"^3.0.0"
     },
     "installPaths":{
-        "coldbox":"coldbox/",
         "testbox":"testbox/",
-        "hyper":"modules/hyper",
-        "quick":"modules/quick"
-    },
-    "cfmigrations":{
-        "defaultGrammar":"AutoDiscover@qb",
-        "schema":"${DB_SCHEMA}",
-        "connectionInfo":{
-            "class":"${DB_CLASS}",
-            "connectionString":"${DB_CONNECTIONSTRING}",
-            "username":"${DB_USER}",
-            "password":"${DB_PASSWORD}"
-        }
-    },
-    "dependencies":{
-        "coldbox":"^5.0.0",
-        "hyper":"^2.1.1",
-        "quick":"^2.5.7"
+        "coldbox":"tests/resources/app/coldbox/"
     },
     "scripts":{
-        "postVersion":"package set location='Tropicalista/wpscanner#v`package version`'",
+        "postVersion":"package set location='Tropicalista/myCoolModule#v`package version`'",
         "onRelease":"publish",
         "postPublish":"!git push && git push --tags"
-    }
+    },
+    "ignore":[
+        "**/.*",
+        "test",
+        "tests"
+    ]
 }

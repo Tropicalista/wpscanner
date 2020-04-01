@@ -1,13 +1,16 @@
 import "bootstrap";
-window.Vue = require( 'vue' );
+const axios = require('axios').default;
 
+window.Vue = require( 'vue' );
+window.axios = axios
 
 import Hola from './components/Hola.vue';
+import Checker from './components/Checker.vue';
 
 new Vue( {
     el : '#app',
 
-    components : { Hola },
+    components : { Hola, Checker },
 
     mounted : function() {
         if ( Vue.config.devtools && console.log ) {

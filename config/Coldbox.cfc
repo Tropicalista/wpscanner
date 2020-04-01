@@ -15,9 +15,9 @@
 
 			//Implicit Events
 			defaultEvent			= "",
-			requestStartHandler		= "Home.onRequestStart",
+			requestStartHandler		= "Main.onRequestStart",
 			requestEndHandler		= "",
-			applicationStartHandler = "Home.onAppInit",
+			applicationStartHandler = "Main.onAppInit",
 			applicationEndHandler	= "",
 			sessionStartHandler 	= "",
 			sessionEndHandler		= "",
@@ -35,7 +35,7 @@
 
 			//Error/Exception Handling
 			invalidHTTPMethodHandler = "",
-			exceptionHandler		= "Home.onException",
+			exceptionHandler		= "main.onException",
 			invalidEventHandler			= "",
 			customErrorTemplate		= "",
 
@@ -56,7 +56,7 @@
 		// create a function with the name of the environment so it can be executed if that environment is detected
 		// the value of the environment is a list of regex patterns to match the cgi.http_host.
 		environments = {
-			development = "localhost,^127\.0\.0"
+			development = "localhost,127\.0\.0\.1"
 		};
 
 		// Module Directives
@@ -74,7 +74,7 @@
 				coldboxTracer = { class="coldbox.system.logging.appenders.ConsoleAppender" }
 			},
 			// Root Logger
-			root = { levelmax="ERROR", appenders="*" },
+			root = { levelmax="INFO", appenders="*" },
 			// Implicit Level Categories
 			info = [ "coldbox.system" ]
 		};
@@ -93,12 +93,6 @@
 		//Register interceptors as an array, we need order
 		interceptors = [
 		];
-
-		moduleSettings = {
-		    quick = {
-		        defaultGrammar = "MySQLGrammar"
-		    }
-		};
 
 		/*
 		// module setting overrides
@@ -135,6 +129,7 @@
 			modelsLocation 	 = "models",
 			eventAction 	 = "index"
 		};
+
 		*/
 
 	}
@@ -144,15 +139,6 @@
 	*/
 	function development(){
 		coldbox.customErrorTemplate = "/coldbox/system/includes/BugReport.cfm";
-
-		// debugging file
-		logbox.appenders.files = {
-			class="coldbox.system.logging.appenders.RollingFileAppender",
-			properties = {
-				filename = "errors", filePath="/logs", async=false
-			}
-		};
-
 	}
 
 }
