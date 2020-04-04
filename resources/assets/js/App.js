@@ -4,13 +4,15 @@ const axios = require('axios').default;
 window.Vue = require( 'vue' );
 window.axios = axios
 
-import Hola from './components/Hola.vue';
+import Apps from './components/Apps.vue';
+import Theme from './components/Theme.vue';
 import Checker from './components/Checker.vue';
+import Plugins from './components/Plugins.vue';
 
 new Vue( {
     el : '#app',
 
-    components : { Hola, Checker },
+    components : { Theme, Checker, Plugins, Apps },
 
     mounted : function() {
         if ( Vue.config.devtools && console.log ) {

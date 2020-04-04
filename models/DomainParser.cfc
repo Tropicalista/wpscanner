@@ -1,21 +1,29 @@
 component{
 	
-	property name="parsedUrl";
+	property name="domain";
 
 	/**
 	 * Constructor
 	 */
 	function init(){
+		variables.domain = createObject( "java", "com.google.common.net.InternetDomainName" );
 		return this;
 	}
 	
 	/**
 	 * Parser
 	 */
-	function parse( required string aDomain ){
-		var domain = createObject( "java", "com.google.common.net.InternetDomainName" ).from( aDomain );
+	function from( required string aDomain ){
+		var domain = domain.from( aDomain );
 
 		return domain;
+	}
+
+	/**
+	 * index
+	 */
+	function hasPublicSuffix( required string aDomain ){
+		return variables.domain.from( arguments.aDomain ).hasPublicSuffix();
 	}
 	
 }

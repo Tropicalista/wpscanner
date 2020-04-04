@@ -1,6 +1,8 @@
 ﻿<cfoutput>
 	<div class="jumbotron">
-        <hola></hola>
         <checker></checker>
     </div>
+        <theme></theme>
+        <plugins></plugins>
+        <apps></apps>
 </cfoutput>

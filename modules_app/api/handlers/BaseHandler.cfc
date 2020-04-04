@@ -142,6 +142,7 @@ component extends="coldbox.system.EventHandler"{
 			if( prc.response.getError() ){
 				responseData = prc.response.getDataPacket( reset=true );
 			}
+
 			// Magical renderings
 			event.renderData(
 				type			= prc.response.getFormat(),

@@ -14,14 +14,17 @@
     "shortDescription":"Short Module Description",
     "description":"Short Module Description",
     "type":"modules",
-    "dependencies":{},
+    "dependencies":{
+        "cbvalidation":"^2.1.0+126"
+    },
     "devDependencies":{
         "coldbox":"^5.0.0",
         "testbox":"^3.0.0"
     },
     "installPaths":{
         "testbox":"testbox/",
-        "coldbox":"tests/resources/app/coldbox/"
+        "coldbox":"tests/resources/app/coldbox/",
+        "cbvalidation":"modules/cbvalidation/"
     },
     "scripts":{
         "postVersion":"package set location='Tropicalista/myCoolModule#v`package version`'",

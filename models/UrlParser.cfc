@@ -29,8 +29,9 @@ component{
 	
 	/**
 	 * is a valid Url?
+	 * @return boolean
 	 */
-	function isValid( required string aUrl ){
+	function isValidUrl( required string aUrl ){
 
 		try{
 			parser.init( arguments.aUrl );
@@ -42,17 +43,30 @@ component{
 	}
 
 	/**
-	 * is a valid Url?
+	 * Has protocol?
+	 * @return boolean
 	 */
 	function hasProtocol( required string aUrl ){
 
-		try{
-			parser.init( arguments.aUrl );
+		if( len( reMatchNoCase( "^https?://", trim( arguments.aUrl ) ) ) ){
+			return true;
 		}
-		catch( any e ){
-			throw("Not valid");
+		return false;
+
+	}
+
+	/**
+	 * get Protocol or fallback to default
+	 * @return A valid protocol
+	 */
+	function getProtocol( required string aUrl ){
+
+		if( hasProtocol( arguments.aUrl ) ){
+			return parse( arguments.aUrl ).protocol;
 		}
-	
+		// fallback to default one
+		return "http";
+
 	}
 
 }

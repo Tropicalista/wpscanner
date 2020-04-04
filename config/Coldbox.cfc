@@ -49,7 +49,7 @@
 
 		// custom settings
 		settings = {
-
+			envato_token= "GWYqTmLmVIRiRwIoi2bMjxjIawpgLtvM"
 		};
 
 		// environment settings, create a detectEnvironment() method to detect it yourself.

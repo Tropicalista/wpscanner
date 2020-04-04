@@ -5,6 +5,8 @@ component accessors="true"{
 
     property name="hyper" inject="HyperBuilder@Hyper";
     property name="parser" inject="UrlParser";
+    property name="domain" inject="DomainParser";
+    property name="themeScanner" inject="ThemeScanner";
 	
 	/**
 	 * Constructor
@@ -12,6 +14,15 @@ component accessors="true"{
 	function init(){
 		
 		return this;
+	}
+	
+	/**
+	 * Makes an HTTP request to a site and get a theme
+	 */
+	function getWpTheme( required string myUrl ){
+		var theme = themeScanner.scan( arguments.myUrl )
+
+		return theme;
 	}
 	
 	/**
@@ -27,14 +38,18 @@ component accessors="true"{
 	 * If there's no protocol add default one
 	 */
 	function sanitizeUrl( required myUrl ){
-		var domain = parser.isValid(arguments.myUrl);
-		dump(domain);
-		abort;
-		var protocol = rematch( "^(?:https?:)?(?:\/\/)", arguments.myUrl );
-		if( !len( protocol ) ){
+
+		if( !parser.hasProtocol( arguments.myUrl ) ){
+			// add the default one
 			arguments.myUrl = "http://" & arguments.myUrl;
 		}
-		if( !isValidUrl( arguments.myUrl) ){
+		var parsedUrl = parser.parse( arguments.myUrl );
+		
+		if( !domain.hasPublicSuffix( parsedUrl.host ) ){
+			throw( "Invalid URL" );
+		}
+
+		if( !parser.isValidUrl( arguments.myUrl) ){
 			throw( "Invalid URL" );
 		}
 
@@ -57,43 +72,6 @@ component accessors="true"{
 	 */
 	function hasExtension( required myUrl ){
 		return find( ".", arguments.myUrl );
-	}
-
-	/**
-	 * get Theme file
-	 */
-	function getTheme( required string style ){
-		
-		var req = makeRequest( arguments.style );
-
-		if( req.isSuccess() ){
-
-			var props = ["Theme Name", "Theme URI", "Author", "Author URI", "Description", "Version", "Tags", "Template", "License", "Text Domain"];
-
-			var body = req.getData();
-			var theme = {};
-
-			for( p in props ){
-				theme[p] = getThemeInfo( p , body );
-			}
-			return theme;
-		}
-
-		return;
-	}
-
-	/**
-	 * get Theme Infos
-	 */
-	function getThemeInfo( required string info, required string body ){
-
-		var r = arguments.info & "\s?:\s?[^\n\r]+";
-
-		var res = reMatchNoCase( r, arguments.body );
-
-		res = res.len() ? res[1] : "";
-
-		return trim(reReplace( res, arguments.info & "\s?:", "" ));
 	}
 
 }

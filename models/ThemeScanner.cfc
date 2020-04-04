@@ -1,0 +1,234 @@
+/**
+ * My Hint
+ */
+component accessors="true"{
+
+    property name="hyper" inject="HyperBuilder@Hyper";
+    property name="parser" inject="UrlParser";
+    property name="domain" inject="DomainParser";
+    property name="theme";
+    property name="jSoup";
+    property name="wpApi" default="https://api.wordpress.org";
+
+	/**
+	 * Constructor
+	 */
+	function init(){
+		
+		variables.jsoup = createObject( "java", "org.jsoup.Jsoup" );
+		return this;
+	}
+
+	/**
+	 * Parse a site to find stylesheet or slug
+	 */
+	function scan( required string aUrl ){
+		
+		var req = makeRequest( arguments.aUrl );
+		var res = {
+			baseUrl = req.getRequest().getFullUrl()
+		};
+
+		if( req.isSuccess() ){
+
+			// parse to get theme slug
+			res.theme.baseUrl = req.getRequest().getFullUrl()
+			res.theme.slug = getThemeSlug( req.getData() );
+			res.theme.themePath = getCSSpath( req.getData() ); // try to get the path of the theme
+			res.plugins = getPluginsSlug( req.getData() );
+
+			return res;
+		}
+
+		return res;
+	}
+
+	/**
+	 * Try to find a theme
+	 *@details All theme details we have found(themepath and theme slugs)
+	 */
+	function getTheme( required struct details ){
+		var themes = [];
+		/*// create a theme style path
+		var stylePath = arguments.details.baseUrl & "/wp-content/themes/";
+		// if we have a themepath use it
+		if( len( arguments.details.themePath ) ){
+			var stylePath = arguments.details.themePath;
+		}
+		for( slug in arguments.details.slug ){
+			arrayAppend( theme, getThemeByStyle( stylePath & slug & "/style.css" ) );
+		}*/
+		var themeUrls = buildThemeUrl( arguments.details );
+		for( u in themeUrls ){
+			arrayAppend( themes, getThemeByStyle( u & "/style.css" ) );
+		}
+
+		return themes;
+	}
+
+	/**
+	 * getThemeScreenshot
+	 */
+	function getThemeScreenshot( required struct details ){
+
+		var themeUrls = buildThemeUrl( arguments.details );
+		var screenshots = [];
+		// first try the png
+		for( u in themeUrls ){
+			arrayAppend( screenshots, getScreenshotUrl( u & "/screenshot.png" ) );
+		}
+
+		if( arrayLen( screenshots ) ){
+			return screenshots;
+		}
+
+		// otherwise try the jpg
+		for( u in themeUrls ){
+			arrayAppend( screenshots, getScreenshotUrl( u & "/screenshot.jpg" ) );
+		}
+		return screenshots;
+
+	}
+
+	/**
+	 * getScreenshotUrl
+	 */
+	function getScreenshotUrl( required string sUrl ){
+	
+		var req = hyper.setMethod( "HEAD" )
+			.setUrl( sUrl )
+			.send();
+
+		if( req.isSuccess() ){
+			return sUrl;
+		}
+
+		return "";
+	}
+
+	/**
+	 * build base theme url
+	 */
+	function buildThemeUrl( required struct details ){
+
+		var urls = [];
+		// create a theme style path
+		var stylePath = arguments.details.baseUrl & "/wp-content/themes/";
+		// if we have a themepath use it
+		if( len( arguments.details.themePath ) ){
+			var stylePath = arguments.details.themePath;
+		}
+		for( slug in arguments.details.slug ){
+			arrayAppend( urls, stylePath & slug & "/" );
+		}
+
+		return urls;
+	}
+
+	/**
+	 * get Theme file
+	 * @styleUrl full path stylesheet
+	 */
+	function getThemeByStyle( required string styleUrl ){
+		
+		var req = makeRequest( arguments.styleUrl );
+
+		if( req.isSuccess() ){
+
+			var props = ["Theme Name", "Theme URI", "Author", "Author URI", "Description", "Version", "Tags", "Template", "License", "Text Domain"];
+
+			var content = req.getData();
+			var theme = {};
+
+			for( p in props ){
+				theme[ lCase( replace( p, " ", "_" ) ) ] = getThemeInfo( p , content );
+			}
+			return theme;
+		}
+
+		return {};
+	}
+
+	/**
+	 * get Theme CSS path
+	 * @body The http body response
+	 */
+	function getCSSpath( required string body ){
+		var linkArr = reMatchNoCase("<link(.*?)/>", arguments.body);
+		var resArr = [];
+		linkArr.each(function(a){
+			var match = reMatchNoCase("href=['""].*\/themes\/", a);
+			if( len(match) ){
+				arrayAppend( resArr, reReplace( match[1], "href=['""']", "" ) );
+			};
+		})
+
+		return arrayLen(resArr) ? resArr[1] : "";
+	}
+
+	/**
+	 * get Plugins slugs
+	 */
+	function getPluginsSlug( required string body ){
+
+		var dom = reMatchNoCase( "/plugins/(.*?)(?=/)", arguments.body );
+
+		var list = listRemoveDuplicates( arrayToList( dom ) );
+		var res = reReplace( list, "/plugins/", "", "ALL" )
+
+		return listToArray( res );
+
+
+	}
+
+	/**
+	 * get Theme slug by body request response
+	 */
+	function getThemeSlug( required string body ){
+
+		var dom = reMatchNoCase( "/themes/(.*?)(?=/)", arguments.body );
+
+		var list = listRemoveDuplicates( arrayToList( dom ) );
+		var res = reReplace( list, "/themes/", "", "ALL" )
+
+		return listToArray( res );
+
+	}
+
+	/**
+	 * get Theme Infos
+	 */
+	function getThemeInfo( required string info, required string content ){
+
+		var regex = arguments.info & "\s?:\s?[^\n\r]+";
+		
+		var res = reMatchNoCase( regex, arguments.content );
+		res = res.len() ? res[1] : "";
+
+		return trim(reReplaceNoCase( res, arguments.info & "\s?:", "" ));
+	}
+	
+	/**
+	 * getPluginFromWp
+	 */
+	function getPluginFromWp( required string slug ){
+		var req = makeRequest( wpApi & "/plugins/info/1.0/" & slug & ".json" );
+
+		if( req.isSuccess() ){
+
+			return req.getData();
+
+		}
+
+	}
+
+	/**
+	 * Makes an HTTP request and return hyper object
+	 */
+	function makeRequest( required string myUrl ){
+		var res = hyper.get( arguments.myUrl );
+
+		return res;
+	}
+
+}

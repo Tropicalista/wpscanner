@@ -1,1 +1,3 @@
-component extends="quick.models.BaseEntity" {}
+component extends="quick.models.BaseEntity" {
+	
+}

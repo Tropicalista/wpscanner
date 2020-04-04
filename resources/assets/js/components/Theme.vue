@@ -1,9 +1,11 @@
 <template>
     <div class="col-md-4 offset-md-4">
-        <h1>Hola, {{ name }}! Stocazzo</h1>
-        <h2>{{ storeState.numbers }}</h2>
-        <input class="form-control" type="text" v-model="name">
+        <h2>Themes</h2>
+        <ul>
+            <li v-for="p in storeState.themes">{{p.theme_name}}</li>
+        </ul>
     </div>
+
 </template>
 <script>
 import { store } from "@/store/simpleStore.js";
