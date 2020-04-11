@@ -2,7 +2,6 @@ component extends="coldbox.system.EventHandler"{
 
 	// Default Action
 	function index(event,rc,prc){
-		prc.welcomeMessage = "Welcome to ColdBox!";
 		event.setView( "main/index" );
 	}
 
@@ -45,6 +44,10 @@ component extends="coldbox.system.EventHandler"{
 		//Grab missingTemplate From request collection, placed by ColdBox
 		var missingTemplate = event.getValue("missingTemplate");
 
-	}
+	}	
 
+    function onAuthenticationFailure( event, rc, prc ) {
+        relocate( "admin/login" );
+    }
+    
 }

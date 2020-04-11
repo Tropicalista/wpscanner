@@ -20,6 +20,8 @@ component{
 	COLDBOX_APP_KEY 		 = "";
 
 	this.javaSettings = { loadPaths = [ "lib" ], reloadOnChange = false };
+	this.datasource = "wpscan";
+	this.mappings[ "/quick" ] = COLDBOX_APP_ROOT_PATH & "/modules/quick";
 
 	// application start
 	public boolean function onApplicationStart(){

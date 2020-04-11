@@ -1,10 +1,10 @@
 <template>
-    <div class="col-md-4 offset-md-4">
-        <h2>Apps</h2>
-        <ul>
-            <li v-for="p in storeState.apps.applications">{{p}}</li>
-        </ul>
+<div v-if="storeState.apps.length">
+    <h2 class="pb-2">Apps</h2>
+    <div class="mb-5">
+        <span class="badge mr-5 badge-secondary" v-for="p in storeState.apps.applications">{{p.name}}</span>
     </div>
+</div>
 </template>
 <script>
 import { store } from "@/store/simpleStore.js";

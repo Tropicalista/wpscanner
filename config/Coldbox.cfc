@@ -94,14 +94,49 @@
 		interceptors = [
 		];
 
-		/*
 		// module setting overrides
 		moduleSettings = {
-			moduleName = {
-				settingName = "overrideValue"
+			socialite = {
+				facebook = {
+					client_id = "XXXXXXXXXXXXX",
+					client_secret = "XXXXXXXXXXXXX",
+					redirect_url = "http://YOUR-URL/provider/response/facebook"					
+				},
+				google = {
+					client_id = "XXXXXXXXXXXXX",
+					client_secret = "XXXXXXXXXXXXX",
+					redirect_url = "http://YOUR-URL/provider/response/google"					
+				},
+				github = {
+					client_id = "XXXXXXXXXXXXX",
+					client_secret = "XXXXXXXXXXXXX",
+					redirect_url = "http://YOUR-URL/provider/response/github"					
+				},
+				linkedin = {
+					client_id = "XXXXXXXXXXXXX",
+					client_secret = "XXXXXXXXXXXXX",
+					redirect_url = "http://YOUR-URL/provider/response/linkedin"					
+				}
+			},
+            "cbauth": {
+                "userServiceClass": "admin.models.User"
+            },
+			cbfs = {
+				disks = {
+					"public" = {
+						provider = "FileProvider",
+						properties = {
+							root = "File root",
+							baseUrl = "The base Url for the storage",
+							visibility = "public or private"
+						}
+					}
+
+				}
 			}
 		};
 
+		/*
 		// flash scope configuration
 		flash = {
 			scope = "session,client,cluster,ColdboxCache,or full path",

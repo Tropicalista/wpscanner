@@ -1,0 +1,37 @@
+{
+    "name":"CB File Storages",
+    "version":"@build.version@+@build.number@",
+    "location":"https://downloads.ortussolutions.com/ortussolutions/coldbox-modules/cbfs/@build.version@/cbfs-@build.version@.zip",
+    "author":"Ortus Solutions, Corp",
+    "homepage":"https://github.com/coldbox-modules/cbfs",
+    "documentation":"https://github.com/coldbox-modules/cbfs",
+    "repository":{
+        "type":"git",
+        "url":"https://github.com/coldbox-modules/cbfs"
+    },
+    "bugs":"https://github.com/coldbox-modules/cbfs/issues",
+    "shortDescription":"This module allows you to abstract filesystems by leveraging a fluent storage API",
+    "slug":"cbfs",
+    "type":"modules",
+    "keywords":"filesystem, storages, s3, cloud storage, java streams, reactive, streaming",
+    "license":[
+        {
+            "type":"Apache2",
+            "url":"http://www.apache.org/licenses/LICENSE-2.0"
+        }
+    ],
+    "contributors":[],
+    "dependencies":{
+        "cbstreams":"^1.1.0+25"
+    },
+    "devDependencies":{},
+    "installPaths":{
+        "cbstreams":"modules/cbstreams/"
+    },
+    "ignore":[
+        "**/.*",
+        "test-harness",
+        "*/.md"
+    ],
+    "scripts":{}
+}

@@ -1,26 +1,31 @@
 export const store = {
   state: {
+    finished: false,
+    noTheme: false,
     apps: [],
     themes: [],
     plugins: []
   },
-  reset(newNumber) {
+  setNoTheme() {
+    this.state.noTheme = true
+  },
+  reset() {
+    this.state.finished = false
+    this.state.noTheme = false
     this.state.apps = []
     this.state.themes = []
     this.state.plugins = []
   },
   addTheme(themes) {
+    if(!themes.length){
+      this.setNoTheme()
+    }
     this.state.themes = themes
   },
   addApps(apps) {
     this.state.apps = apps
   },
-  addPlugins(plugins) {
-  	var arr = []
-	plugins.forEach( p => {
-  		if(!('error' in p.data)){
-		    this.state.plugins.push(p.data)
-  		}	    
-	});
+  finish(){
+    this.state.finished = true
   }
 };

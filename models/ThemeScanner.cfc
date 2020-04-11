@@ -48,28 +48,47 @@ component accessors="true"{
 	 *@details All theme details we have found(themepath and theme slugs)
 	 */
 	function getTheme( required struct details ){
+
 		var themes = [];
-		/*// create a theme style path
-		var stylePath = arguments.details.baseUrl & "/wp-content/themes/";
-		// if we have a themepath use it
-		if( len( arguments.details.themePath ) ){
-			var stylePath = arguments.details.themePath;
-		}
 		for( slug in arguments.details.slug ){
-			arrayAppend( theme, getThemeByStyle( stylePath & slug & "/style.css" ) );
-		}*/
-		var themeUrls = buildThemeUrl( arguments.details );
-		for( u in themeUrls ){
-			arrayAppend( themes, getThemeByStyle( u & "/style.css" ) );
+			var theme = {};
+			theme.themeurl = buildThemeUrl( arguments.details, slug );
+			theme.slug = slug
+			arrayAppend( themes, theme );
 		}
 
-		return themes;
+		var result = [];
+		for( t in themes ){
+			var temp = getThemeByStyle( t.themeurl & "/style.css", t.slug );
+			temp.screenshot = getThemeScreenshot( t.themeurl );
+			temp.slug = t.slug;
+			arrayAppend( result, temp );
+		}
+		
+		return result;
 	}
 
 	/**
 	 * getThemeScreenshot
 	 */
-	function getThemeScreenshot( required struct details ){
+	function getThemeScreenshot( required string sUrl ){
+
+		var screenshot = getScreenshotUrl( sUrl & "/screenshot.png" );
+
+		if( len( screenshot ) ){
+			return screenshot;
+		}
+
+		// otherwise try the jpg
+		screenshot = getScreenshotUrl( sUrl & "/screenshot.jpg" );
+		return screenshot;
+
+	}
+
+	/**
+	 * getThemeScreenshot
+	 */
+	function getThemeScreenshots( required struct details ){
 
 		var themeUrls = buildThemeUrl( arguments.details );
 		var screenshots = [];
@@ -109,27 +128,23 @@ component accessors="true"{
 	/**
 	 * build base theme url
 	 */
-	function buildThemeUrl( required struct details ){
+	function buildThemeUrl( required struct details, required string slug ){
 
-		var urls = [];
 		// create a theme style path
 		var stylePath = arguments.details.baseUrl & "/wp-content/themes/";
 		// if we have a themepath use it
 		if( len( arguments.details.themePath ) ){
 			var stylePath = arguments.details.themePath;
 		}
-		for( slug in arguments.details.slug ){
-			arrayAppend( urls, stylePath & slug & "/" );
-		}
 
-		return urls;
+		return stylePath & slug;
 	}
 
 	/**
 	 * get Theme file
 	 * @styleUrl full path stylesheet
 	 */
-	function getThemeByStyle( required string styleUrl ){
+	function getThemeByStyle( required string styleUrl, slug ){
 		
 		var req = makeRequest( arguments.styleUrl );
 
@@ -143,6 +158,7 @@ component accessors="true"{
 			for( p in props ){
 				theme[ lCase( replace( p, " ", "_" ) ) ] = getThemeInfo( p , content );
 			}
+			if( !( theme.theme_name.len() ) ){ theme.theme_name = arguments.slug[1] }
 			return theme;
 		}
 
@@ -205,7 +221,9 @@ component accessors="true"{
 		var res = reMatchNoCase( regex, arguments.content );
 		res = res.len() ? res[1] : "";
 
-		return trim(reReplaceNoCase( res, arguments.info & "\s?:", "" ));
+        if ( res.len() > 800 AND !( FindNoCase( 'description', info ) ) ) return ""; 
+
+		return trim( reReplaceNoCase( res, arguments.info & "\s?:", "" ) );
 	}
 	
 	/**

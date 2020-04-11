@@ -14,6 +14,9 @@ component{
 	 * Perform a wappalyzer action. It needs a valid url with protocol
 	 */
 	function check( required string myUrl ){
+
+return {}
+
 		var target = scanner.sanitizeUrl( arguments.myUrl );
 
 		var basePath = expandPath("./");

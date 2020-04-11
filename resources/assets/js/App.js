@@ -9,6 +9,9 @@ import Theme from './components/Theme.vue';
 import Checker from './components/Checker.vue';
 import Plugins from './components/Plugins.vue';
 
+import './filters/firstDot.js'
+import './filters/truncate.js'
+
 new Vue( {
     el : '#app',
 

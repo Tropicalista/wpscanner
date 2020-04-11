@@ -12,7 +12,7 @@ component extends="BaseHandler"{
  	};
 
 	function preHandler( event, rc, prc ){
-		event.paramValue('target','http://ciccddio.it/');
+		event.paramValue('target','');
 		if( !len( reMatchNoCase( "^https?://", trim( rc.target ) ) ) ){
 			rc.target = "http://" & rc.target;
 		}		
@@ -21,7 +21,7 @@ component extends="BaseHandler"{
 	/**
 	 * Home page
 	 */
-	function getApps( event, rc, prc ){
+	function apps( event, rc, prc ){
 
 		validateOrFail( target=rc, constraints=this.constraints );
 		var result = Wappalyzer.check(rc.target);
@@ -44,7 +44,7 @@ component extends="BaseHandler"{
 	/**
 	 * Home page
 	 */
-	function getTheme( event, rc, prc ){
+	function theme( event, rc, prc ){
 
 		var result = themeScanner.getTheme( rc.theme );
 
@@ -55,9 +55,9 @@ component extends="BaseHandler"{
 	/**
 	 * getThemeScreenshot
 	 */
-	function getThemeScreenshot( event, rc, prc ){
+	function themeScreenshot( event, rc, prc ){
 
-		var result = themeScanner.getThemeScreenshot( rc.theme );
+		var result = themeScanner.getThemeScreenshots( rc.theme );
 
 		prc.response.setData( result );
 
