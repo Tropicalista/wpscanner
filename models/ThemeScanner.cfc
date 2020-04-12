@@ -170,7 +170,7 @@ component accessors="true"{
 	 * @body The http body response
 	 */
 	function getCSSpath( required string body ){
-		var linkArr = reMatchNoCase("<link(.*?)/>", arguments.body);
+		var linkArr = reMatchNoCase("<link(.*?)/?>", arguments.body);
 		var resArr = [];
 		linkArr.each(function(a){
 			var match = reMatchNoCase("href=['""].*\/themes\/", a);
