@@ -10,6 +10,11 @@ Vue.use(VueMeta)
 
 let app = document.getElementById('app')
 
+import throttle from 'lodash/throttle'
+import pickBy from 'lodash/pickBy'
+import mapValues from 'lodash/mapValues'
+
+window._ = { pickBy, throttle, mapValues }
 
 new Vue({
   metaInfo: {
@@ -19,7 +24,7 @@ new Vue({
   render: h => h(InertiaApp, {
     props: {
       initialPage: JSON.parse(app.dataset.page),
-      resolveComponent: name => import(/* webpackChunkName: 'includes/js/pages/[request]' */ `@admin/Pages/${name}`).then(module => module.default),
+      resolveComponent: name => import(/* webpackChunkName: 'modules_app/admin/includes/js/pages/[request]' */ `@admin/Pages/${name}`).then(module => module.default),
     },
   }),
 }).$mount(app)

@@ -28,7 +28,8 @@
         "socialite":"^1.3.3",
         "cbpaginator":"^2.0.0",
         "qb":"^7.6.0",
-        "quick":"^2.5.7"
+        "quick":"^2.5.7",
+        "cfmigrations":"^2.0.3"
     },
     "devDependencies":{
         "coldbox":"^5.0.0",
@@ -52,7 +53,8 @@
         "socialite":"modules/socialite/",
         "cbpaginator":"modules/cbpaginator/",
         "qb":"modules/qb/",
-        "quick":"modules/quick/"
+        "quick":"modules/quick/",
+        "cfmigrations":"modules/cfmigrations/"
     },
     "scripts":{
         "postVersion":"package set location='Tropicalista/myCoolModule#v`package version`'",

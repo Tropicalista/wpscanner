@@ -4,7 +4,9 @@ component extends="BaseEntity" {
 
     property name="id";
     property name="title";
-    property name="body";
+    property name="content";
+    property name="meta_title";
+    property name="meta_description";
     property name="userId" column="user_id";
     property name="createdDate" column="created_date";
     property name="modifiedDate" column="modified_date";
@@ -22,11 +24,11 @@ component extends="BaseEntity" {
     }
 
     function getParagraphs() {
-        return super.getBody().split( "[\n\r]+" );
+        return super.getContent().split( "[\n\r]+" );
     }
 
     function setExcerpt( excerpt ) {
-        assignAttribute( "body", excerpt );
+        assignAttribute( "content", excerpt );
         return this;
     }
 

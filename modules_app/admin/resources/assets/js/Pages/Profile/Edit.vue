@@ -14,8 +14,9 @@
           <text-input v-model="form.first_name" :errors="$page.errors.first_name" class="pr-6 pb-8 w-full lg:w-1/2" label="First name" />
           <text-input v-model="form.last_name" :errors="$page.errors.last_name" class="pr-6 pb-8 w-full lg:w-1/2" label="Last name" />
           <text-input v-model="form.email" :errors="$page.errors.email" class="pr-6 pb-8 w-full lg:w-1/2" label="Email" />
-          <text-input v-model="form.password" :errors="$page.errors.password" class="pr-6 pb-8 w-full lg:w-1/2" type="password" autocomplete="new-password" label="Password" />
           <file-input v-model="form.photo" :errors="$page.errors.photo" class="pr-6 pb-8 w-full lg:w-1/2" type="file" accept="image/*" label="Photo" />
+          <text-input v-model="form.password" :errors="$page.errors.password" class="pr-6 pb-8 w-full lg:w-1/2" type="password" autocomplete="new-password" label="Password" />
+          <text-input v-model="form.new_password" :errors="$page.errors.new_password" class="pr-6 pb-8 w-full lg:w-1/2" type="password" autocomplete="new-password" label="New Password" />
         </div>
         <div class="px-8 py-4 bg-grey-lightest border-t border-grey-lighter flex items-center">
           <button v-if="!user.deleted_at" class="text-red hover:underline" tabindex="-1" type="button" @click="destroy">Delete User</button>
@@ -74,6 +75,7 @@ export default {
       data.append('last_name', this.form.last_name || '')
       data.append('email', this.form.email || '')
       data.append('password', this.form.password || '')
+      data.append('new_password', this.form.new_password || '')
       data.append('owner', this.form.owner ? '1' : '0')
       data.append('photo', this.form.photo || '')
       data.append('_method', 'put')

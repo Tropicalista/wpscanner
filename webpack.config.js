@@ -1,8 +1,10 @@
 const elixir 	= require( "coldbox-elixir" );
 const webpack 	= require( "webpack" );
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 elixir.config.mergeConfig({
     plugins: [
+	    new BundleAnalyzerPlugin(),
         // globally scoped items which need to be available in all templates
         new webpack.ProvidePlugin({
 			$              : "jquery",

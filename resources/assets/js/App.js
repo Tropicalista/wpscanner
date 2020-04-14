@@ -1,4 +1,4 @@
-import "bootstrap";
+//import "bootstrap";
 const axios = require('axios').default;
 
 window.Vue = require( 'vue' );

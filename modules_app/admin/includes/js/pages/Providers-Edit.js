@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["includes/js/pages/Providers-Edit"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["modules_app/admin/includes/js/pages/Providers-Edit"],{
 
 /***/ "./modules_app/admin/resources/assets/js/Pages/Providers/Edit.vue":
 /*!************************************************************************!*\

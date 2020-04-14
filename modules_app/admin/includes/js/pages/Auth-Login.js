@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["includes/js/pages/Auth-Login"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["modules_app/admin/includes/js/pages/Auth-Login"],{
 
 /***/ "./modules_app/admin/resources/assets/js/Pages/Auth/Login.vue":
 /*!********************************************************************!*\

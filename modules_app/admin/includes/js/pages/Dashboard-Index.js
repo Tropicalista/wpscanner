@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["includes/js/pages/Dashboard-Index"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["modules_app/admin/includes/js/pages/Dashboard-Index"],{
 
 /***/ "./modules_app/admin/resources/assets/js/Pages/Dashboard/Index.vue":
 /*!*************************************************************************!*\

@@ -14,6 +14,9 @@ component{
         resources( "site" );
         get( "reports", "dashboard.reports" );
 
+        get( "posts/:id/edit", "posts.edit" );
+        resources( "posts" );
+
         get( "providers/:id/edit", "providers.edit" );
         resources( "providers" );
 

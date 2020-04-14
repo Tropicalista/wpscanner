@@ -26,7 +26,11 @@ component secured {
         user.update( event.getOnly( [ "first_name", "last_name", "email" ] ) );
 
         if ( event.valueExists( "password" ) ) {
-            user.update( { "password": rc.password } );
+            var data = validateOrFail( target = rc, constraints = {
+                "password": { "required": true },
+                "new_password": { "required": true }
+            } );
+            user.update( { "password": rc.new_password } );
         }
 
         relocate( uri = "/admin/profile", statusCode = 303 );

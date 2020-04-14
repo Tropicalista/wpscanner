@@ -67,7 +67,6 @@
 </template>
 
 <script>
-import _ from 'lodash'
 import Icon from '@admin/Shared/Icon'
 import Layout from '@admin/Shared/Layout'
 import Pagination from '@admin/Shared/MyPagination'
