@@ -67,7 +67,7 @@ component{
 				author = structKeyExists( p, 'author' ) ? reReplaceNoCase( p.author, "<[^>]*>", "", "All" ) : "",
 				author_uri = structKeyExists( p, 'author_uri' ) ? reReplaceNoCase( p.author_uri, "<[^>]*>", "", "All" ) : "",
 				homepage = structKeyExists( p, 'homepage' ) ? p.homepage : "",
-				description = structKeyExists( p, 'sections' ) ? reReplaceNoCase( DecodeForHTML( p.sections.description ), "<[^>]*>", "", "All" ) : "",
+				description = structKeyExists( p, 'sections' ) ? Left( reReplaceNoCase( DecodeForHTML( p.sections.description ), "<[^>]*>", "", "All" ), 500) : "",
 				screenshot = ( structKeyExists( p, 'banners' ) AND !isArray( p.banners ) ) ? p.banners.low : "",
 				repository = structKeyExists( p, 'name' ) ? "wordpress" : "",
 				lastFoundOn = structKeyExists( rc, 'baseUrl' ) ? rc.baseUrl : "",

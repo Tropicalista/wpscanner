@@ -3,7 +3,10 @@ const webpack 	= require( "webpack" );
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 elixir.config.mergeConfig({
-    plugins: [
+        externals:{
+            'quill':'quill'
+        },
+        plugins: [
 	    new BundleAnalyzerPlugin(),
         // globally scoped items which need to be available in all templates
         new webpack.ProvidePlugin({
@@ -16,6 +19,7 @@ elixir.config.mergeConfig({
         })
     ]
 });
+
 /*
  |--------------------------------------------------------------------------
  | Elixir Asset Management

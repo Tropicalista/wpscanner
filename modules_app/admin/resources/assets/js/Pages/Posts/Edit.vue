@@ -9,10 +9,12 @@
       
       <form @submit.prevent="submit">
         <div class="p-8 -mr-6 -mb-8 flex flex-wrap">
-          <text-input v-model="form.title" :errors="$page.errors.title" class="pr-6 pb-8 w-full lg:w-1/2" label="Title" />
-          <editor-input v-model="form.content" :errors="$page.errors.content" class="pr-6 pb-8 w-full" label="Content" />
-          <text-input v-model="form.meta_title" :errors="$page.errors.meta_title" class="pr-6 pb-8 w-full lg:w-1/2" label="Meta Title" />
-          <text-input v-model="form.meta_description" :errors="$page.errors.meta_description" class="pr-6 pb-8 w-full lg:w-1/2" label="Meta Description" />
+          <text-input v-model="form.title" :errors="$page.errors.title" class="pr-6 pb-8 w-full" label="Title" />
+          <div class="pr-6 pb-8 w-full">
+            <editor-input v-model="form.content" :errors="$page.errors.content" label="Content" />
+          </div>
+          <text-input v-model="form.meta_title" :errors="$page.errors.meta_title" class="pr-6 pb-8 w-full" label="Meta Title" />
+          <text-input v-model="form.meta_description" :errors="$page.errors.meta_description" class="pr-6 pb-8 w-full" label="Meta Description" />
         </div>
         <div class="px-8 py-4 bg-grey-lightest border-t border-grey-lighter flex items-center">
           <button class="text-red hover:underline" tabindex="-1" type="button" @click="destroy">Delete Post</button>

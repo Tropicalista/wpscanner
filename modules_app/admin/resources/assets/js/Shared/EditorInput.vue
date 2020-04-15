@@ -22,7 +22,7 @@
                         ['bold', 'italic', 'underline']
                     ]
                 },
-                theme: 'bubble',
+                theme: 'snow',
                 formats: ['bold', 'underline', 'header', 'italic']
             });
 
