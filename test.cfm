@@ -1,8 +1,9 @@
 <cfscript>
-cfdbinfo( type="Version", name="local.dbInfo" );
-dump(local.dbInfo);
-
-cfdbinfo( type="tables" name="tables" datasource="wpscan" );
-dump(tables);
-abort;
+c = "";
+if( isDefined("ciccio") ){
+	cfhttp ( url="http://127.0.0.1:57764/test.cfm", result="c", userAgent="stocazzo"  );
+}
 </cfscript>
+
+<cflog file="myAppLog" application="no" text="#serializeJson(getHttpRequestData())# logged on.">
+

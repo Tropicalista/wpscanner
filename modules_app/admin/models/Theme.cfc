@@ -2,7 +2,7 @@ component extends="quick.models.BaseEntity" {
     
     property name="id";
     property name="slug";
-    property name="name";
+    property name="theme_name";
     property name="author";
     property name="author_uri";
     property name="theme_uri";

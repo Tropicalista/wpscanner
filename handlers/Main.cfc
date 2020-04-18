@@ -2,7 +2,14 @@ component extends="coldbox.system.EventHandler"{
 
 	// Default Action
 	function index(event,rc,prc){
+		rc.lastChecked = getInstance( "site@admin" ).limit( 10 ).get();
+		//dump(rc.lastChecked);
 		event.setView( "main/index" );
+	}
+
+	function template(event,rc,prc){
+		//dump(rc.lastChecked);
+		event.setView( "main/template" );
 	}
 
 	// Do something

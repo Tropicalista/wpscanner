@@ -11,7 +11,7 @@
           <text-input v-model="form.name" :errors="$page.errors.name" class="pr-6 pb-8 w-full lg:w-1/2" label="Name" />
           <text-input v-model="form.slug" :errors="$page.errors.slug" class="pr-6 pb-8 w-full lg:w-1/2" label="Slug" />
           <text-input v-model="form.author" :errors="$page.errors.author" class="pr-6 pb-8 w-full lg:w-1/2" label="Author" />
-          <text-input v-model="form.homepage" :errors="$page.errors.homepage" class="pr-6 pb-8 w-full lg:w-1/2" label="Homepage" />
+          <text-input v-model="form.theme_uri" :errors="$page.errors.theme_uri" class="pr-6 pb-8 w-full lg:w-1/2" label="Theme Uri" />
           <text-input v-model="form.referral_url" :errors="$page.errors.referral_url" class="pr-6 pb-8 w-full lg:w-1/2" label="Referral Url" />
           <select-input v-model="form.provider" :errors="$page.errors.providers" class="pr-6 pb-8 w-full lg:w-1/2" label="Provider">
             <option :value="null" />
@@ -64,7 +64,7 @@ export default {
         name: this.theme.name,
         slug: this.theme.slug,
         author: this.theme.author,
-        homepage: this.theme.homepage,
+        theme_uri: this.theme.theme_uri,
         description: this.theme.description,
         screenshot: this.theme.screenshot,
         referral_url: this.theme.referral_url,

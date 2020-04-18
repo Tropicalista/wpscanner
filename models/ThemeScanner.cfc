@@ -28,6 +28,8 @@ component accessors="true"{
 		var res = {
 			baseUrl = req.getRequest().getFullUrl()
 		};
+		
+		res.headers = req.getHeaders();
 
 		if( req.isSuccess() ){
 
@@ -128,16 +130,16 @@ component accessors="true"{
 	/**
 	 * build base theme url
 	 */
-	function buildThemeUrl( required struct details, required string slug ){
+	function buildThemeUrl( required struct details, required string slug, boolean themePath = false ){
 
 		// create a theme style path
-		var stylePath = arguments.details.baseUrl & "/wp-content/themes/";
+		var stylePath = arguments.details.baseUrl & "/wp-content/themes/";		
 		// if we have a themepath use it
-		if( len( arguments.details.themePath ) ){
+		if( len( arguments.details.themePath ) AND arguments.themePath ){
 			var stylePath = arguments.details.themePath;
 		}
 
-		return stylePath & slug;
+		return stylePath & arguments.slug;
 	}
 
 	/**
@@ -244,7 +246,12 @@ component accessors="true"{
 	 * Makes an HTTP request and return hyper object
 	 */
 	function makeRequest( required string myUrl ){
-		var res = hyper.get( arguments.myUrl );
+		var headers = {};
+		headers["User-Agent"] = "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.113 Safari/537.36";
+		headers.referer = "http://wpscanner.net";
+		headers["accept-language"] = "it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7,es;q=0.6";
+
+		var res = hyper.setHeaders( headers ).get( arguments.myUrl );
 
 		return res;
 	}

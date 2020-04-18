@@ -1,14 +1,22 @@
 <template>
-<div v-if="storeState.finished">
-    <h2 class="pb-2">Themes</h2>
-    <div class="alert alert-danger" role="alert" v-if="storeState.noTheme">
-      No WordPress Theme found!
+<div v-if="storeState.finished" class="mb-5">
+    <div v-if="storeState.finished" class="row">
+        <div class="col-md-12">
+            <h2 class="pb-2">Themes</h2>
+            <div class="alert alert-danger" role="alert" v-if="storeState.noTheme">
+              No WordPress Theme found!
+            </div>
+        </div>
     </div>
-    <div class="row mb-5" v-for="t in storeState.themes">
+    <div v-for="t in storeState.themes" class="row mb-5">
         <div class="col-md-4">
             <a :href="t.theme_uri" target="_blank">          
                 <img :src="t.screenshot" class="img-fluid" v-if="t.theme_name">
-                <svg v-else class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="##55595c"></rect><text x="50%" y="50%" fill="##eceeef" dy=".3em">Thumbnail</text></svg>
+                <svg v-else class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
+                    <title>Placeholder</title>
+                    <rect width="100%" height="100%" fill="##55595c"></rect>
+                    <text x="50%" y="50%" fill="##eceeef" dy=".3em">Thumbnail</text>
+                </svg>
             </a>
         </div>
         <div class="col-md-8">
@@ -26,7 +34,7 @@
 
 </template>
 <script>
-import { store } from "@/store/simpleStore.js";
+import { store } from "@/store/themeStore.js";
 
 export default {
     data() {

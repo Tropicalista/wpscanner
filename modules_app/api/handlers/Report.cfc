@@ -39,7 +39,7 @@ component{
 						license = t.license,
 						screenshot = t.screenshot,
 						tags = t.tags,
-						name = t.theme_name,
+						theme_name = t.theme_name,
 						hits = query.raw( "hits + 1" ),
 						theme_uri = t.theme_uri
 				});

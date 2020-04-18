@@ -7,7 +7,7 @@
 </div>
 </template>
 <script>
-import { store } from "@/store/simpleStore.js";
+import { store } from "@/store/themeStore.js";
 
 export default {
     data() {

@@ -18,13 +18,13 @@
             <hr>
         </div>  
     </div>
-    <div class="loader">
-        <div class="lds-facebook py-4" v-if="loading"><div></div><div></div><div></div></div>
+    <div class="loader" style="min-height:50px">
+        <div class="lds-facebook" v-if="loading"><div></div><div></div><div></div></div>
     </div>
 </form>
 </template>
 <script>
-import { store } from "@/store/simpleStore.js";
+import { store } from "@/store/themeStore.js";
 import { plugin } from "@/store/pluginStore.js";
 
 export default {
@@ -49,21 +49,23 @@ export default {
                 } )
                 .catch(error => {
                     this.hasError = true
-
                 } )
 
         },
         scan( target ) {
             this.loading = true
             this.hasError = false
+            // first get site html
             axios
                 .post('/api/wordpress/scan', {
                     target: target
                 })
                 .then(response => {
 
-                  console.log(response)  
+                    console.log(response)  
                     let data = response.data.data
+
+                    // log this
                     axios
                         .post('/api/site', data)
                     
@@ -75,12 +77,11 @@ export default {
                     }
 
                     if( data.theme !== undefined ){
-                        this.getTheme( data.theme )  
+                        store.getTheme( data.theme )  
                     }else{
                         store.setNoTheme()
                     }
-                    store.finish()
-                    this.getApps( data.baseUrl )
+                    //this.getApps( data.baseUrl )
                 } )
                 .catch(error => {
                     console.log( error )
@@ -89,28 +90,6 @@ export default {
                     // always executed
                     this.loading = false
                 });             
-        },
-        getTheme(theme) {
-            axios
-                .post('/api/wordpress/theme', {
-                    theme: theme
-                })
-                .then(response => {
-                    store.addTheme(response.data.data)
-                    this.getThemeFromDB(response.data.data)
-                    //this.getThemeScreenshot(theme)
-                } )
-                .catch(error => console.log( error.response ) )              
-        },
-        getThemeFromDB(theme) {
-            axios
-                .post('/api/themeFromDb', {
-                    theme: theme
-                })
-                .then(response => {
-                    //console.log(response.data.data)
-                } )
-                .catch(error => console.log( error.response ) )              
         },
         getThemeScreenshot(theme) {
             axios
@@ -145,8 +124,8 @@ export default {
 .lds-facebook {
   display: inline-block;
   position: relative;
-  width: 80px;
-  height: 80px;
+  width: 40px;
+  height: 40px;
 }
 .lds-facebook div {
   display: inline-block;

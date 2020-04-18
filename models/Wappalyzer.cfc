@@ -15,8 +15,6 @@ component{
 	 */
 	function check( required string myUrl ){
 
-return {}
-
 		var target = scanner.sanitizeUrl( arguments.myUrl );
 
 		var basePath = expandPath("./");
@@ -24,6 +22,7 @@ return {}
 		cfexecute( name="node" arguments="#basePath#resources\assets\js\wappalyzer #target#" variable="result" errorVariable = "errors" timeout="10" );
 
 		return DeserializeJSON(result);
+		
 	}
 
 }

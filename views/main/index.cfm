@@ -2,8 +2,7 @@
 
   <section class="jumbotron text-center mb-0">
     <div class="container">
-      <h1>Album example</h1>
-      <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
+      <p class="lead text-muted">Want to know what theme or what plugins is using a site? Use this free tool.</p>
       	<div class="row">
       		<div class="col-md-6 offset-md-3">
       		<checker></checker>
@@ -12,17 +11,55 @@
     </div>
   </section>
 
-  <div class="py-5 bg-light">
-    <div class="container">
-    	<div class="row">
-		    <theme></theme>	
-    	</div>
-		<div class="row">
-			<plugins></plugins>
-		</div>
-		<div class="row">
-			<apps></apps>
-		</div>
+  <div class="bg-light">
+    <div class="container py-5">
+      <theme></theme>	
+      <plugins></plugins>
+      <apps></apps>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row py-5">
+      
+      <div class="col-md-6">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Last checked</th>
+            </tr>
+          </thead>
+          <tbody>
+            <cfloop array="#rc.lastChecked#" index="site">
+            <tr>
+              <td>#site.getUrl()#</td>
+            </tr>
+            </cfloop>
+          </tbody>
+        </table>
+      </div>
+      
+      <div class="col-md-6">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Site</th>
+              <th scope="col">Theme</th>
+              <th scope="col">Plugins</th>
+            </tr>
+          </thead>
+          <tbody>
+            <cfloop array="#rc.lastChecked#" index="site">
+            <tr>
+              <td>#site.getUrl()#</td>
+              <td>the Bird</td>
+              <td>@twitter</td>
+            </tr>
+            </cfloop>
+          </tbody>
+        </table>
+      </div>
+
     </div>
   </div>
 

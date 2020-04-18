@@ -80,8 +80,6 @@ component secured {
 
     function update( event, rc, prc ) {
         var theme = getInstance("Theme@admin").findOrFail( rc.id );
-        var provider = getInstance("Provider@admin").findOrFail( rc.provider );
-
         if ( prc.dataValidation.hasErrors() ) {
             flash.put( "errors", prc.dataValidation.getAllErrorsAsStruct() );
             relocate( uri = "/admin/themes/#rc.id#/edit", statusCode = 303 );
@@ -89,7 +87,11 @@ component secured {
         } 
 
         theme.update( event.getExcept( ["last_url","event"] ) );
-        plugin.provider().associate(provider);
+        if( ! isNull( rc.provider ) ){
+            var provider = getInstance("Provider@admin").find( rc.provider );
+            plugin.provider().associate(provider);
+        }
+
         flash.put( "success", { success = "Theme Updated!" } );
 
         relocate( uri = "/admin/themes/#rc.id#/edit", statusCode = 303 );

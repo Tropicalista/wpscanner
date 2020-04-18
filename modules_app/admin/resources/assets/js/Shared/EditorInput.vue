@@ -1,5 +1,5 @@
 <script>
-    import Quill from 'quill';
+    import Quill from 'quill'
 
     export default {
         props: {

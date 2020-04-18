@@ -4,7 +4,7 @@ component {
         schema.create( "themes", function( table ) {
             table.increments( "id" );
             table.string( "slug" ).unique();
-            table.string( "name" );
+            table.string( "theme_name" );
             table.string( "author" );
             table.string( "author_uri" );
             table.string( "theme_uri" );

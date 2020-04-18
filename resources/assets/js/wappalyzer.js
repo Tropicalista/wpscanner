@@ -2,7 +2,7 @@ const Wappalyzer = require('wappalyzer');
  
 const url = process.argv[2];
 //const url = "https://www.valerio.it";
-const wp  = require('./detect-wp.js');
+//const wp  = require('./detect-wp.js');
 
 var body, theme, plugins, headers
  
@@ -12,7 +12,7 @@ const options = {
   delay: 500,
   maxDepth: 1,
   maxUrls: 1,
-  maxWait: 5000,
+  maxWait: 8000,
   recursive: false,
   userAgent: 'Wappalyzer',
   htmlMaxCols: 2000,
@@ -30,10 +30,10 @@ const wappalyzer = new Wappalyzer(url, options);
 wappalyzer.on('visit', params => {
   const { browser, pageUrl } = params;
 
-  theme = wp.getTheme(browser.html);
-  plugins = wp.getPlugins(browser.html);
-  body = browser.html
-  headers = browser.headers
+  //theme = wp.getTheme(browser.html);
+  //plugins = wp.getPlugins(browser.html);
+  //body = browser.html
+  //headers = browser.headers
 
 });
  

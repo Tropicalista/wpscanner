@@ -1,1 +1,0 @@
-<file-manager v-bind:settings="settings"></file-manager>
