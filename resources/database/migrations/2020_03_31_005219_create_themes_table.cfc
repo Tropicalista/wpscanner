@@ -7,6 +7,7 @@ component {
             table.string( "theme_name" );
             table.string( "author" );
             table.string( "author_uri" );
+            table.string( "version" );
             table.string( "theme_uri" );
             table.text( "description" );
             table.text( "tags" );

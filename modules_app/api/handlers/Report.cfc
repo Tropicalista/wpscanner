@@ -35,6 +35,7 @@ component{
 						slug = t.slug,
 						author = t.author,
 						author_uri = t.author_uri,
+						version = t.version,
 						description = t.description,
 						license = t.license,
 						screenshot = t.screenshot,

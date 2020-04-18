@@ -10,7 +10,7 @@
       <form @submit.prevent="submit">
         <div class="p-8 -mr-6 -mb-8 flex flex-wrap">
           <text-input v-model="form.title" :errors="$page.errors.title" class="pr-6 pb-8 w-full" label="Title" />
-          <div class="pr-6 pb-8 w-full">
+          <div class="pr-6 pb-16 w-full">
             <editor-input v-model="form.content" :errors="$page.errors.content" label="Content" />
           </div>
           <text-input v-model="form.meta_title" :errors="$page.errors.meta_title" class="pr-6 pb-8 w-full" label="Meta Title" />

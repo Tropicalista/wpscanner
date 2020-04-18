@@ -78,11 +78,13 @@ component secured {
 
     function update( event, rc, prc ) {
         var plugin = getInstance("Plugin@admin").findOrFail( rc.id );
-        var provider = getInstance("Provider@admin").findOrFail( rc.provider );
 
-
+        if( ! isNull( rc.provider ) ){
+            var provider = getInstance("Provider@admin").find( rc.provider );
+            plugin.provider().associate(provider);
+        }
         plugin.update( event.getExcept( ["last_url","event","provider"] ) );
-        plugin.provider().associate(provider);
+        flash.put( "success", { success = "Plugin Updated!" } );
 
         relocate( uri = "/admin/plugins/#rc.id#/edit", statusCode = 303 );
     }

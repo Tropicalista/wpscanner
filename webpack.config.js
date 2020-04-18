@@ -4,7 +4,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 
 elixir.config.mergeConfig({
         externals:{
-            'quill':'quill'
+            'quill':'Quill'
         },
         plugins: [
 	    new BundleAnalyzerPlugin(),

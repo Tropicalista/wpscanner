@@ -5,6 +5,7 @@ component extends="quick.models.BaseEntity" {
     property name="theme_name";
     property name="author";
     property name="author_uri";
+    property name="version";
     property name="theme_uri";
     property name="description";
     property name="screenshot";
