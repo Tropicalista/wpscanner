@@ -19,7 +19,7 @@ export const plugin = {
         .then(resp => {
           this.state.plugins = resp
           this.askToDB()
-          this.finish()
+          //this.finish()
         })
     },
     fetchData(plugin) {
@@ -46,6 +46,7 @@ export const plugin = {
           if(!this.state.pluginList.length){
             this.state.noPlugins = false
           }
+          this.finish()
         })
     },
     reset(){

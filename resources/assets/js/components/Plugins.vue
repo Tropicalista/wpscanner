@@ -3,7 +3,7 @@
   <div v-if="storeState.finished" class="row">
       <div class="col-md-12">
           <h2 class="pb-2">Plugins</h2>
-          <div class="alert alert-danger" role="alert" v-if="storeState.noPlugins">
+          <div class="alert alert-danger" role="alert" v-if="!storeState.pluginList.length">
             No WordPress Plugin found!
           </div>
       </div>

@@ -12,16 +12,19 @@
   </section>
 
   <div class="bg-light">
-    <div class="container py-5">
-      <theme></theme>	
+    <div class="container py-2">
+      <theme></theme> 
       <plugins></plugins>
-      <geo></geo>
-      <apps></apps>
     </div>
   </div>
 
   <div class="container">
-    <div class="row py-5">
+    <geo></geo>
+    <apps></apps>
+  </div>
+
+  <div class="container">
+    <div class="row py-2">
       
       <div class="col-md-6">
         <table class="table">
