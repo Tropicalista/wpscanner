@@ -52,7 +52,6 @@ export const store = {
           })
           .then(response => {
               this.addThemes(response.data)
-              console.log(response.data)
               this.finish()
           } )
           .catch(error => console.log( error.response ) )              

@@ -2,29 +2,29 @@ component extends="quick.models.BaseEntity" {
     
     property name="id";
     property name="slug";
-    property name="theme_name";
+    property name="name" column="theme_name";
     property name="author";
-    property name="author_uri";
+    property name="authorUri" column="author_uri";
     property name="version";
-    property name="theme_uri";
+    property name="themeUri" column="theme_uri";
     property name="description";
     property name="screenshot";
     property name="license";
     property name="tags";
     property name="referralUrl" column="referral_url";
     property name="hits" default="1";
-    property name="has_referral";
+    property name="hasReferral";
     property name="repository";
 
-    function getTheme_Uri(){
+    function getThemeUri(){
         if( len( variables.referralUrl ) ){
             return variables.referralUrl;
         }
-        return variables.theme_uri;
+        return variables.themeUri;
     }
 
     function getHasReferral(){
-        if( len( variables.referral_url ) ){
+        if( len( variables.referralUrl ) ){
             return true;
         }
         return false;
@@ -33,7 +33,7 @@ component extends="quick.models.BaseEntity" {
     function getReferralUrl( value ){
 
         if( ! len( retrieveAttribute( "referralUrl" ) ) ){
-            return variables.theme_uri
+            return variables.themeUri
         }
 
         return retrieveAttribute( "referralUrl" );

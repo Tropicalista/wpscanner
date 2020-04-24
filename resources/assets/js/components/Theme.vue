@@ -11,17 +11,17 @@
     <div v-for="t in storeState.themes" class="row mb-5">
         <div class="col-md-4">
             <a :href="getUrl( t )" target="_blank">          
-                <img :src="t.screenshot" class="img-fluid" v-if="t.theme_name">
+                <img :src="t.screenshot" class="img-fluid" v-if="t.name">
                 <svg v-else class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
                     <title>Placeholder</title>
-                    <rect width="100%" height="100%" fill="##55595c"></rect>
-                    <text x="50%" y="50%" fill="##eceeef" dy=".3em">Thumbnail</text>
+                    <rect width="100%" height="100%" fill="#55595c"></rect>
+                    <text x="50%" y="50%" fill="#eceeef" dy=".3em">No screenshot</text>
                 </svg>
             </a>
         </div>
         <div class="col-md-8">
-            <ul v-if="t.theme_name">
-                <li><b>Title:</b> {{t.theme_name}}</li>
+            <ul v-if="t.name">
+                <li><b>Title:</b> {{t.name}}</li>
                 <li><b>Description:</b> {{t.description | truncate }}</li>
                 <li><b>Author:</b> {{t.author}}</li>
                 <li><b>Version:</b> {{t.version}}</li>

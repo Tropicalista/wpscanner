@@ -24,29 +24,27 @@ component{
 	 * Home page
 	 */
 	function themeFromDB( event, rc, prc ){
-		
-		var slugs = [];
-		for( t in rc.theme ){
-			arrayAppend( slugs, t.slug );
-			//if( ! findNoCase( "-child", t.slug ) ){
 
+		var slugs = [];
+		var res = [];
+
+		for( t in rc.theme ){
+
+			arrayAppend( slugs, t.slug );
+
+			if( ! findNoCase( "-child", t.slug ) ){
+
+				var data = t.filter( function(d){
+					return len( t[d] )
+				} )
+				structDelete( data, "text_domain" );
+				data.hits = query.raw( "hits + 1" )
+				
 				getInstance("Theme@admin")
 					.where( 'slug', t.slug )
-					.updateOrInsert({
-						slug = t.slug,
-						author = t.author,
-						author_uri = t.author_uri,
-						version = t.version,
-						description = t.description,
-						license = t.license,
-						screenshot = t.screenshot,
-						tags = t.tags,
-						theme_name = t.theme_name,
-						hits = query.raw( "hits + 1" ),
-						theme_uri = t.theme_uri
-				});
+					.updateOrInsert( data )
 
-			//}
+			}
 
 		}
 
@@ -109,6 +107,15 @@ component{
 		var res = ipApi.getIp( rc.target );
 
 		return res;
+	}
+
+	private function mergeStructs(required array structs) {
+	    var base = {};
+	    var len = arrayLen(arguments.structs);
+	    for (var i = 1; i <= len; i = i + 1) {
+	        for (key in arguments.structs[i]) base[lcase(key)]=arguments.structs[i][key];
+	    }
+	    return base;
 	}
 
 }

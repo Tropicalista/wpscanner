@@ -27,7 +27,7 @@
         <tr v-for="theme in themes.data" :key="theme.id" class="hover:bg-grey-lightest focus-within:bg-grey-lightest">
           <td class="border-t">
             <inertia-link class="px-6 py-4 flex items-center focus:text-indigo" :href="`/admin/themes/${theme.id}/edit`">
-              {{ theme.name }}
+              {{ theme.theme_name }}
               <icon v-if="theme.deleted_at" name="trash" class="flex-no-shrink w-3 h-3 fill-grey ml-2" />
             </inertia-link>
           </td>

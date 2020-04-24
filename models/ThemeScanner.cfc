@@ -59,7 +59,7 @@ component accessors="true"{
 
 		var result = [];
 		for( t in themes ){
-			var temp = getThemeByStyle( t.themeurl & "/style.css", t.slug );
+			var temp = getThemeByStyle( t.themeurl & "/style.css?ver=23", t.slug );
 			temp.screenshot = getThemeScreenshot( t.themeurl );
 			temp.slug = t.slug;
 			arrayAppend( result, temp );
