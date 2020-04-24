@@ -212,11 +212,9 @@ component accessors="true"{
 		var list = listRemoveDuplicates( arrayToList( dom ) );
 		var res = reReplace( list, "/themes/", "", "ALL" )
 
-		c = listToArray( res ).filter( function(t) {
+		return listToArray( res ).filter( function(t) {
 			return !reFind( "[^\w-]", t )
 		} )
-
-		return c;
 
 	}
 
