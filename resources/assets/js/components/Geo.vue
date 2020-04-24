@@ -2,6 +2,9 @@
 <div v-if="storeState.finished" class="mb-5">
     <div v-if="storeState.geo" class="row mb-5">
         <div class="col-md-6">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">IP: {{storeState.geo.ip}}</li>
+            </ul>
             <table class="table">
               <thead>
                 <tr>
