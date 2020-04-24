@@ -82,8 +82,14 @@ component{
 			if( structKeyExists( p, 'sections' ) ){
 				p.description = Left( reReplaceNoCase( DecodeForHTML( p.sections.description ), "<[^>]*>", "", "All" ), 500);
 			}
-			if( structKeyExists( p, 'banners' ) AND !isArray( p.banners ) ){
-				p.screenshot = p.banners.low;
+			if( structKeyExists( p, 'banners' ) ){
+				if( isArray( p.banners ) ){
+					p.screenshot = "";
+				}else{
+					p.screenshot = structKeyExists( p.banners, 'low' ) ? p.banners.low : "";	
+				}
+			}else{
+				p.screenshot = "";
 			}
 			if( structKeyExists( p, 'name' ) ){
 				p.repository = "wordpress";
