@@ -6,8 +6,6 @@ component accessors="true"{
     property name="hyper" inject="HyperBuilder@Hyper";
     property name="parser" inject="UrlParser";
     property name="domain" inject="DomainParser";
-    property name="theme";
-    property name="jSoup";
     property name="wpApi" default="https://api.wordpress.org";
 
 	/**
@@ -66,7 +64,7 @@ component accessors="true"{
 			temp.slug = t.slug;
 			arrayAppend( result, temp );
 		}
-		
+
 		return result;
 	}
 
@@ -150,21 +148,26 @@ component accessors="true"{
 		
 		var req = makeRequest( arguments.styleUrl );
 
+		var theme = {};
+		var props = ["Theme Name", "Theme URI", "Author", "Author URI", "Description", "Version", "Tags", "Template", "License", "Text Domain"];
+
 		if( req.isSuccess() ){
 
-			var props = ["Theme Name", "Theme URI", "Author", "Author URI", "Description", "Version", "Tags", "Template", "License", "Text Domain"];
-
 			var content = req.getData();
-			var theme = {};
 
 			for( p in props ){
 				theme[ lCase( replace( p, " ", "_" ) ) ] = getThemeInfo( p , content );
 			}
 			if( !( theme.theme_name.len() ) ){ theme.theme_name = arguments.slug[1] }
+
 			return theme;
 		}
 
-		return {};
+		for( p in props ){
+			theme[ lCase( replace( p, " ", "_" ) ) ] = "";
+		}
+
+		return theme;
 	}
 
 	/**
@@ -209,7 +212,11 @@ component accessors="true"{
 		var list = listRemoveDuplicates( arrayToList( dom ) );
 		var res = reReplace( list, "/themes/", "", "ALL" )
 
-		return listToArray( res );
+		c = listToArray( res ).filter( function(t) {
+			return !reFind( "[^\w-]", t )
+		} )
+
+		return c;
 
 	}
 

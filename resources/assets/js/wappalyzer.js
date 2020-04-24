@@ -12,7 +12,7 @@ const options = {
   delay: 500,
   maxDepth: 1,
   maxUrls: 1,
-  maxWait: 8000,
+  maxWait: 10000,
   recursive: false,
   userAgent: 'Wappalyzer',
   htmlMaxCols: 2000,
@@ -40,9 +40,9 @@ wappalyzer.on('visit', params => {
 wappalyzer.analyze()
   .then((json) => {
     //json.body = body
-    json.headers = headers
-    json.theme = theme
-    json.plugins = plugins
+    //json.headers = headers
+    //json.theme = theme
+    //json.plugins = plugins
     process.stdout.write(`${JSON.stringify(json, null, 2)}\n`);
  
     process.exit(0);

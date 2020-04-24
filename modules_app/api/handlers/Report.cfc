@@ -28,8 +28,8 @@ component{
 		
 		var slugs = [];
 		for( t in rc.theme ){
-			c= arrayAppend( slugs, t.slug );
-			if( ! findNoCase( "-child", t.slug ) ){
+			arrayAppend( slugs, t.slug );
+			//if( ! findNoCase( "-child", t.slug ) ){
 
 				getInstance("Theme@admin")
 					.where( 'slug', t.slug )
@@ -47,7 +47,7 @@ component{
 						theme_uri = t.theme_uri
 				});
 
-			}
+			//}
 
 		}
 
