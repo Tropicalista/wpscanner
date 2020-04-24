@@ -62,7 +62,7 @@
         </tr>
       </table>
     </div>
-    <pagination :links="themes.pagination" />
+    <pagination :links="themes.pagination" :type="'themes'" />
   </div>
 </template>
 

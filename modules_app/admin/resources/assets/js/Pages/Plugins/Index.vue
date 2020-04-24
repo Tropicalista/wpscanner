@@ -62,7 +62,7 @@
         </tr>
       </table>
     </div>
-    <pagination :links="plugins.pagination" />
+    <pagination :links="plugins.pagination" :type="'plugins'" />
   </div>
 </template>
 

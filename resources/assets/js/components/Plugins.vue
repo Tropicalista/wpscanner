@@ -4,7 +4,7 @@
       <div class="col-md-12">
           <h2 class="pb-2">Plugins</h2>
           <div class="alert alert-danger" role="alert" v-if="storeState.noPlugins">
-            No WordPress Theme found!
+            No WordPress Plugin found!
           </div>
       </div>
   </div>

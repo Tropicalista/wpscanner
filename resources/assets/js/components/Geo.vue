@@ -10,7 +10,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(item, index) in storeState.geo.geoIP">
+                <tr v-for="(item, index) in storeState.geo">
                   <td>{{index}}</td>
                   <td>{{item}}</td>
                 </tr>

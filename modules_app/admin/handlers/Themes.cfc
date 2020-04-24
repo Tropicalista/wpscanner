@@ -29,7 +29,7 @@ component secured {
         if( len( rc.search ) ){
             var themes = query.from( "themes" )
                                 .where( 'slug', "LIKE", "%#rc.search#%" )
-                                .orWhere( 'name', "LIKE", "%#rc.search#%" )
+                                .orWhere( 'theme_name', "LIKE", "%#rc.search#%" )
                                 .paginate( rc.page, 10 )
         }else{
             var themes = query.from( "themes" )
