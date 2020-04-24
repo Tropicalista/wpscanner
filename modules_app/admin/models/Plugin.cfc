@@ -24,6 +24,10 @@ component extends="quick.models.BaseEntity" accessors="true" {
         return belongsTo( "Provider@admin" );
     }
 
+    function setUpdatedDate( value ) {
+        return { value = now(), cfsqltype = "CF_SQL_TIMESTAMP" };
+    }
+
     function getHomepage(){
         if( ! len( retrieveAttribute( "homepage" ) ) ){
             var res = createObject("java", "java.util.regex.Pattern")

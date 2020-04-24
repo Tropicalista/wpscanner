@@ -62,23 +62,50 @@ component{
 		for(p in rc.plugins){
 
 			// set the link
-			var link = structKeyExists( p, 'homepage' ) ? p.homepage : "";
+			/*var link = structKeyExists( p, 'homepage' ) ? p.homepage : "";
 			if( ! len( link ) ){
 				link = structKeyExists( p, 'author' ) ? p.author : "";
-			}
+			}*/
 
-			getInstance("Plugin@admin").where( 'slug', p.slug ).updateOrInsert({
+			// some clean up
+			if( structKeyExists( p, 'notFound' ) ){
+				var data = getInstance("Plugin@admin").getMemento();
+				data.slug = p.slug;
+				structAppend( p, data, true );
+			}
+			if( structKeyExists( p, 'name' ) ){
+				p.name = DecodeForHTML( p.name );
+			}
+			if( structKeyExists( p, 'author' ) ){
+				p.author = reReplaceNoCase( p.author, "<[^>]*>", "", "All" );
+			}
+			if( structKeyExists( p, 'sections' ) ){
+				p.description = Left( reReplaceNoCase( DecodeForHTML( p.sections.description ), "<[^>]*>", "", "All" ), 500);
+			}
+			if( structKeyExists( p, 'banners' ) AND !isArray( p.banners ) ){
+				p.screenshot = p.banners.low;
+			}
+			if( structKeyExists( p, 'name' ) ){
+				p.repository = "wordpress";
+			}
+			if( structKeyExists( rc, 'baseUrl' ) ){
+				p.lastFoundOn = rc.baseUrl;
+			}
+			p.hits = query.raw( "hits + 1" );
+			p.updatedDate = Now() //{ value = now(), cfsqltype = "CF_SQL_TIMESTAMP" }
+
+			getInstance("Plugin@admin").where( 'slug', p.slug ).updateOrInsert( {
 				slug = p.slug,
-				name = structKeyExists( p, 'name' ) ? DecodeForHTML( p.name ): "",
-				author = structKeyExists( p, 'author' ) ? reReplaceNoCase( p.author, "<[^>]*>", "", "All" ) : "",
-				author_uri = link,
-				homepage = structKeyExists( p, 'homepage' ) ? p.homepage : "",
-				description = structKeyExists( p, 'sections' ) ? Left( reReplaceNoCase( DecodeForHTML( p.sections.description ), "<[^>]*>", "", "All" ), 500) : "",
-				screenshot = ( structKeyExists( p, 'banners' ) AND !isArray( p.banners ) ) ? p.banners.low : "",
-				repository = structKeyExists( p, 'name' ) ? "wordpress" : "",
-				lastFoundOn = structKeyExists( rc, 'baseUrl' ) ? rc.baseUrl : "",
+				name = p.name,
+				author = p.author,
+				homepage = p.homepage,
+				description = p.description,
+				screenshot = p.screenshot,
+				repository = p.repository,
+				lastFoundOn = p.lastFoundOn,
 				hits = query.raw( "hits + 1" ),
 				updatedDate = { value = now(), cfsqltype = "CF_SQL_TIMESTAMP" }
+
 			});
 
 		}	
