@@ -84,7 +84,7 @@ export default {
                         store.setNoTheme()
                     }
                     this.getIp( data.baseUrl )
-                    this.getApps( data.baseUrl )
+                    //this.getApps( data.baseUrl )
                 } )
                 .catch(error => {
                     console.log( error )

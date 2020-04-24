@@ -1,12 +1,12 @@
 <template>
 <div v-if="storeState.finished" class="mb-5">
-  <div class="row">
-    <div class="col-md-12">
-        <h2 class="pb-2">Plugins</h2>
-        <div class="alert alert-danger" role="alert" v-if="!storeState.pluginList.length">
-          No WordPress Plugins found!
-        </div>
-    </div>
+  <div v-if="storeState.finished" class="row">
+      <div class="col-md-12">
+          <h2 class="pb-2">Plugins</h2>
+          <div class="alert alert-danger" role="alert" v-if="storeState.noPlugins">
+            No WordPress Theme found!
+          </div>
+      </div>
   </div>
   <div class="card mb-3 shadow-sm" v-for="p in storeState.pluginList">
       <div class="row no-gutters">
