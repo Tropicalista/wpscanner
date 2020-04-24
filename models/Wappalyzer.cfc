@@ -19,7 +19,7 @@ component{
 
 		var basePath = expandPath("./");
 
-		cfexecute( name="node" arguments="#basePath#resources\assets\js\wappalyzer #target#" variable="result" errorVariable = "errors" timeout="10" );
+		cfexecute( name="node" arguments="#basePath#resources/assets/js/wappalyzer #target#" variable="result" errorVariable = "errors" timeout="10" );
 
 		return DeserializeJSON(result);
 		
