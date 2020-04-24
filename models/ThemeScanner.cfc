@@ -158,7 +158,7 @@ component accessors="true"{
 			for( p in props ){
 				theme[ lCase( replace( p, " ", "_" ) ) ] = getThemeInfo( p , content );
 			}
-			if( !( theme.theme_name.len() ) ){ theme.theme_name = arguments.slug[1] }
+			if( !( theme.theme_name.len() ) ){ theme.theme_name = arguments.slug }
 
 			return theme;
 		}

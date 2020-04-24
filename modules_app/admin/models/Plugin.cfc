@@ -4,11 +4,12 @@ component extends="quick.models.BaseEntity" accessors="true" {
     property name="slug";
     property name="name";
     property name="author";
+    property name="author_uri";
     property name="download_link";
     property name="description";
     property name="homepage";
     property name="screenshot";
-    property name="referral_url";
+    property name="referralUrl" column="referral_url";
     property name="hits" default="1";
     property name="repository";
     property name="lastFoundOn";
@@ -21,6 +22,27 @@ component extends="quick.models.BaseEntity" accessors="true" {
 
     function provider() {
         return belongsTo( "Provider@admin" );
+    }
+
+    function getHomepage(){
+        if( ! len( retrieveAttribute( "homepage" ) ) ){
+            var res = createObject("java", "java.util.regex.Pattern")
+                        .compile('(?<=")(.*)(?=")')
+                        .matcher( retrieveAttribute( "author_uri" ) );
+            while (res.find()){
+                return res.group();
+            }
+        }
+        return retrieveAttribute( "homepage" );
+    }
+
+    function getReferralUrl( value ){
+
+        if( ! len( retrieveAttribute( "referralUrl" ) ) ){
+            return getHomepage()
+        }
+
+        return retrieveAttribute( "referralUrl" );
     }
 
 }

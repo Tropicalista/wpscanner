@@ -10,7 +10,7 @@
     </div>
     <div v-for="t in storeState.themes" class="row mb-5">
         <div class="col-md-4">
-            <a :href="t.theme_uri" target="_blank">          
+            <a :href="getUrl( t )" target="_blank">          
                 <img :src="t.screenshot" class="img-fluid" v-if="t.theme_name">
                 <svg v-else class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
                     <title>Placeholder</title>
@@ -25,7 +25,7 @@
                 <li><b>Description:</b> {{t.description | truncate }}</li>
                 <li><b>Author:</b> {{t.author}}</li>
                 <li><b>Version:</b> {{t.version}}</li>
-                <li><b>Url:</b> <a :href="t.theme_uri" target="_blank">{{t.theme_uri}}</a></li>
+                <li><b>Url:</b> <a :href="getUrl( t )" target="_blank">{{t.theme_uri}}</a></li>
             </ul>
             <h3 v-else>Cannot found a theme on this site, sorry!</h3>
         </div>
@@ -41,6 +41,17 @@ export default {
         return {
             storeState: store.state
         };
+    },
+    methods:{
+      getUrl( theme ){
+        return '/out/theme/' + theme.slug
+        if( theme.homepage ){
+          return theme.homepage
+        }
+        if( theme.profile ){
+          return theme.profile
+        }
+      }
     }
 };
 </script>

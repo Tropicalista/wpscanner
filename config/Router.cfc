@@ -19,6 +19,8 @@ component{
 			return "Ok!";
 		});
 
+		route("/out/:what/:slug", "main.out" );
+
 		// Conventions based routing
 		route( ":handler/:action?" ).end();
 	}

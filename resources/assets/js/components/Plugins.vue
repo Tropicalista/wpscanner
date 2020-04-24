@@ -11,13 +11,13 @@
   <div class="card mb-3 shadow-sm" v-for="p in storeState.pluginList">
       <div class="row no-gutters">
         <div class="col-md-4">
-          <a :href="p.homepage" target="_blank">
+          <a :href="getUrl(p)" target="_blank">
             <img :src="p.screenshot" class="card-img">
           </a>
         </div>
         <div class="col-md-8">
           <div class="card-body">
-            <h5 class="card-title"><a :href="p.homepage" target="_blank">{{p.name}}</a></h5>
+            <h5 class="card-title"><a :href="getUrl(p)" target="_blank">{{p.name}}</a></h5>
             <p class="card-text" :inner-html.prop="p.description | truncate"></p>
             <p class="card-text"><small class="text-muted">Author: {{p.author}}</small></p>
           </div>
@@ -34,6 +34,17 @@ export default {
         return {
             storeState: plugin.state
         };
+    },
+    methods:{
+      getUrl( plugin ){
+        return '/out/plugin/' + plugin.slug
+        if( plugin.homepage ){
+          return plugin.homepage
+        }
+        if( plugin.profile ){
+          return plugin.profile
+        }
+      }
     }
 };
 </script>

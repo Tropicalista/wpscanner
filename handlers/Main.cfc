@@ -3,15 +3,27 @@ component extends="coldbox.system.EventHandler"{
 	// Default Action
 	function index(event,rc,prc){
 		rc.lastChecked = getInstance( "site@admin" ).limit( 10 ).get();
-		//dump(rc.lastChecked);
 		event.setView( "main/index" );
 	}
 
-	function test(event,rc,prc){
-		var host = "attesawp.com";
-		//sslCertificateInstall(host);
-		cfhttp( url="https://#host#", result="res" );
-		writedump(res);
+	function out(event,rc,prc){
+		cfheader( name="X-Robots-Tag" value="noindex, nofollow");
+
+		if( rc.what EQ "theme" ){
+			var obj = getInstance( "theme@admin" ).where( 'slug', rc.slug ).first();
+		}
+		if( rc.what EQ "plugin" ){
+			var obj = getInstance( "plugin@admin" ).where( 'slug', rc.slug ).first();
+		}
+
+		if( !isNull( obj ) ){
+			var referralUrl = obj.getMemento().referralUrl
+			if( !len( referralUrl ) ){
+				location( "/", "no", 301 );
+			}
+			location( referralUrl, "no", 301 );
+		}
+		location( "/", "no", 301 );
 		abort;
 	}
 
