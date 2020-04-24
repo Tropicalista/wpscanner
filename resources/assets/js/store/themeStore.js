@@ -2,6 +2,7 @@ export const store = {
   state: {
     finished: false,
     noTheme: false,
+    geo: {},
     apps: [],
     themes: [],
     plugins: []
@@ -24,6 +25,9 @@ export const store = {
   },
   addApps(apps) {
     this.state.apps = apps
+  },
+  addGeo(geo) {
+    this.state.geo = geo
   },
   finish(){
     this.state.finished = true

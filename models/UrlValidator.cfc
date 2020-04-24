@@ -23,13 +23,12 @@ component accessors="true" implements="cbvalidation.models.validators.IValidator
 		any validationData,
 		struct rules
 	){		
-		var parsedUrl = createObject( "java", "java.net.URL" ).init(arguments.targetValue);
-		//var domain = createObject( "java", "com.google.common.net.InternetDomainName" ).from(parsedUrl.host).hasPublicSuffix();
+		var parsedUrl = createObject( "java", "java.net.URL" ).init( arguments.targetValue );
 
 		var domain = parsedUrl.getHost();
 
 		// Simple Tests
-		if( find( ".", arguments.targetValue) AND len(domain) AND createObject( "java", "com.google.common.net.InternetDomainName" ).from(domain).hasPublicSuffix() ){
+		if( find( ".", arguments.targetValue) AND len( domain ) AND createObject( "java", "com.google.common.net.InternetDomainName" ).from( domain ).hasPublicSuffix() ){
 			return true;
 		}
 
@@ -44,13 +43,6 @@ component accessors="true" implements="cbvalidation.models.validators.IValidator
 	*/
 	string function getName(){
 		return name;
-	}
-	
-	/**
-	 * gg
-	 */
-	function gg(){
-	
 	}
 
 }

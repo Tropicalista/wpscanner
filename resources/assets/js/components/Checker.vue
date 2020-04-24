@@ -19,7 +19,7 @@
         </div>  
     </div>
     <div class="loader" style="min-height:50px">
-        <div class="lds-facebook" v-if="loading"><div></div><div></div><div></div></div>
+        <div class="lds-facebook" v-if="loading && !storeState.finished && !pluginState.finished"><div></div><div></div><div></div></div>
     </div>
 </form>
 </template>
@@ -31,6 +31,7 @@ export default {
     data() {
         return {
             storeState : store,
+            pluginState : plugin,
             target: '',
             hasError: false,
             loading: false
@@ -40,6 +41,7 @@ export default {
         validate(target){
             store.reset()
             plugin.reset()
+            target.trim()
             axios
                 .post('/api/validate', {
                     target: target
@@ -81,7 +83,7 @@ export default {
                     }else{
                         store.setNoTheme()
                     }
-                    //this.getApps( data.baseUrl )
+                    this.getIp( data.baseUrl )
                 } )
                 .catch(error => {
                     console.log( error )
@@ -109,6 +111,17 @@ export default {
                 })
                 .then(response => {
                     store.addApps(response.data.data)
+                } )
+                .catch(error => console.log( error.response ) )              
+        },
+        getIp(target) {
+            ////console.log(target)
+            axios
+                .post('api/ip', {
+                    target: target
+                })
+                .then(response => {
+                    store.addGeo(response.data)
                 } )
                 .catch(error => console.log( error.response ) )              
         }

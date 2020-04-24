@@ -3,7 +3,9 @@
  */
 component{
 
+	property name="urlParser" inject="UrlParser";
 	property name="query" inject="QueryBuilder@qb";
+    property name="hyper" inject="HyperBuilder@Hyper";
 
 	/**
 	 * Home page
@@ -93,6 +95,25 @@ component{
 
 		return arr;
 
+	}
+
+	/**
+	 * get Ip from domain
+	 */
+	function getIp( event, rc, prc ){
+		var res = {}
+		var parsed = urlParser.parse( rc.target );
+		res.ip = CreateObject("java", "java.net.InetAddress").getByName( parsed.host ).getHostAddress();
+		structAppend( res, parsed);
+		var req = hyper.setMethod( "GET" )
+			.setUrl( "https://ipapi.co/" & res.ip & "/json/" )
+			.send();
+
+		if( req.isSuccess() ){
+			res.geoIP = deserializeJSON( req.getData() );
+		}
+
+		return res;
 	}
 
 }

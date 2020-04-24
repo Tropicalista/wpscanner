@@ -8,6 +8,7 @@ import Apps from './components/Apps.vue';
 import Theme from './components/Theme.vue';
 import Checker from './components/Checker.vue';
 import Plugins from './components/Plugins.vue';
+import Geo from './components/Geo.vue';
 
 import './filters/firstDot.js'
 import './filters/truncate.js'
@@ -15,7 +16,7 @@ import './filters/truncate.js'
 new Vue( {
     el : '#app',
 
-    components : { Theme, Checker, Plugins, Apps },
+    components : { Theme, Checker, Plugins, Apps, Geo },
 
     mounted : function() {
         if ( Vue.config.devtools && console.log ) {

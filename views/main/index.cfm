@@ -15,6 +15,7 @@
     <div class="container py-5">
       <theme></theme>	
       <plugins></plugins>
+      <geo></geo>
       <apps></apps>
     </div>
   </div>

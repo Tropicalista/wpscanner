@@ -7,6 +7,14 @@ component extends="coldbox.system.EventHandler"{
 		event.setView( "main/index" );
 	}
 
+	function test(event,rc,prc){
+		var host = "attesawp.com";
+		//sslCertificateInstall(host);
+		cfhttp( url="https://#host#", result="res" );
+		writedump(res);
+		abort;
+	}
+
 	function template(event,rc,prc){
 		//dump(rc.lastChecked);
 		event.setView( "main/template" );

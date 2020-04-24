@@ -23,7 +23,7 @@ component accessors="true"{
 	 * Parse a site to find stylesheet or slug
 	 */
 	function scan( required string aUrl ){
-		
+
 		var req = makeRequest( arguments.aUrl );
 		var res = {
 			baseUrl = req.getRequest().getFullUrl()

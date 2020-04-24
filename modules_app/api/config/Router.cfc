@@ -1,6 +1,7 @@
 component{
 
     function configure(){
+		post( "ip", "report.getIp" );
 		post( "validate", "home.validate" );
 		post( "apps", "home.apps" );
 		route( "wordpress/scan", "home.scan" ); // pass a site url and get theme
