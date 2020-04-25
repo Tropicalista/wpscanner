@@ -38,6 +38,7 @@ component{
 					return len( t[d] )
 				} )
 				structDelete( data, "text_domain" );
+				structDelete( data, "template" );
 				data.hits = query.raw( "hits + 1" )
 				
 				getInstance("Theme@admin")
