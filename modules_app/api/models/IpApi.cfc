@@ -20,7 +20,8 @@ component {
 			.send();
 
 		if( req.isSuccess() ){
-			return getMemento( deserializeJson(req.getData()) );
+			return deserializeJson( req.getData() );
+			//return getMemento( deserializeJson(req.getData()) );
 		}
 		return {}
 	}
