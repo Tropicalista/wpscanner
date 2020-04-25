@@ -8,7 +8,9 @@
         </div>
         <div class="col-md-6">
           <ul class="list-group list-group-flush">
-            <li class="list-group-item" v-for="p in storeState.apps.applications">{{p.name}}</li>
+            <li class="list-group-item" v-for="p in storeState.apps.applications">
+              <img :src="'/includes/images/icons/' + p.icon"> {{p.name}}
+            </li>
           </ul>
         </div>
     </div>

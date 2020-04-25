@@ -12,7 +12,7 @@
       <div class="row no-gutters">
         <div class="col-md-4">
           <a :href="getUrl(p)" target="_blank">
-            <img :src="p.screenshot" class="card-img">
+            <img :src="p.screenshot" class="card-img" />
           </a>
         </div>
         <div class="col-md-8">
