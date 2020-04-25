@@ -69,3 +69,16 @@ h1 {
 }
 
 
+.icon-container {
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+}
+
+/* resize images */
+.icon-container img {
+  width: 100%;
+  height: auto;
+}
+
+

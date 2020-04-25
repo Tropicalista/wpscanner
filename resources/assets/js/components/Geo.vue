@@ -2,14 +2,16 @@
 <div v-if="storeState.finished" class="mb-5">
     <div v-if="storeState.geo" class="row mb-5">
         <div class="col-md-6">
+          <h3>Site Geo IP</h3>
           <ul class="list-group list-group-flush">
             <li class="list-group-item">IP: {{storeState.geo.ip}}</li>
           </ul>
         </div>
         <div class="col-md-6">
+          <h3>Apps used</h3>
           <ul class="list-group list-group-flush">
             <li class="list-group-item" v-for="p in storeState.apps.applications">
-              <img :src="'/includes/images/icons/' + p.icon"> {{p.name}}
+              <div class="icon-container"><img :src="'/includes/images/icons/' + p.icon"></div> {{p.name}} <code>{{p.version}}</code>
             </li>
           </ul>
         </div>
@@ -28,3 +30,15 @@ export default {
     }
 };
 </script>
+<style>
+.icon-container {
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+}
+/* resize images */
+.icon-container img {
+    width: 100%;
+    height: auto;
+}
+</style>
