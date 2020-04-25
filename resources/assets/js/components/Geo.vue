@@ -11,7 +11,8 @@
           <h3>Apps used</h3>
           <ul class="list-group list-group-flush">
             <li class="list-group-item" v-for="p in storeState.apps.applications">
-              <div class="icon-container"><img :src="'/includes/images/icons/' + p.icon"></div> {{p.name}} <code>{{p.version}}</code>
+              <div class="icon-container mr-2"><img :src="'/includes/images/icons/' + p.icon"></div>
+              <a :href="p.website">{{p.name}}</a> <code>{{p.version}}</code>
             </li>
           </ul>
         </div>
