@@ -62,12 +62,6 @@ component{
 
 		for(p in rc.plugins){
 
-			// set the link
-			/*var link = structKeyExists( p, 'homepage' ) ? p.homepage : "";
-			if( ! len( link ) ){
-				link = structKeyExists( p, 'author' ) ? p.author : "";
-			}*/
-
 			// some clean up
 			if( structKeyExists( p, 'notFound' ) ){
 				var data = getInstance("Plugin@admin").getMemento();

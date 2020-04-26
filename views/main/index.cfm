@@ -11,16 +11,18 @@
     </div>
   </section>
 
-  <div class="bg-light">
+  <div class="bg-light" id="report">
     <div class="container py-2">
       <theme></theme> 
       <plugins></plugins>
     </div>
   </div>
 
-  <div class="container">
-    <geo></geo>
-    <apps></apps>
+  <div class="container py-2">
+    <div class="row">
+      <apps></apps>
+      <geo></geo>
+    </div>
   </div>
 
   <div class="container">

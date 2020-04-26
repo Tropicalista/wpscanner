@@ -1,26 +1,66 @@
 <template>
-<div v-if="storeState.apps.length">
-    <h2 class="pb-2">Apps</h2>
-    <div class="mb-5">
-        <span class="badge mr-5 badge-secondary" v-for="p in storeState.apps.applications">{{p.name}}</span>
-    </div>
+<div class="col-md-6" v-if="target">
+    <h3>Apps used</h3>
+    <spinner v-if="loading" />
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item" v-for="a in apps.applications">
+            <span class="icon-container mr-2"><img :src="'/includes/images/icons/' + a.icon"></span>
+            <a :href="a.website" target="_blank">{{a.name}}</a> <code>{{a.version}}</code>
+        </li>
+    </ul>
 </div>
 </template>
 <script>
-import { store } from "@/store/themeStore.js";
+import { store } from "@/store/themeStore.js"
+import Spinner from "@/components/spinner.vue"
+import EventBus from "@/event-bus.js";
 
 export default {
     data() {
         return {
-            name: 'Mr ColdBox',
-            storeState: store.state
+            target: "",
+            loading: false,
+            apps: []
         };
+    },
+    mounted() {
+        EventBus.$on("scanned-site", (data) => {
+          this.loading = true
+          this.target = data.baseUrl
+          this.getApps( this.target )
+        })
+    },
+    methods: {
+        getApps(target) {
+            axios
+                .post('/api/apps', {
+                    target: target
+                })
+                .then(response => {
+                    this.apps = response.data.data
+                    this.loading = false
+                } )
+                .catch(error => { 
+                    this.loading = false
+                    console.log( error.response ) 
+                } )              
+        }
+    },
+    components: {
+        Spinner
     }
-};
+}
 </script>
 
 <style>
-    h1 {
-        color: green;
-    }
+.icon-container {
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+}
+/* resize images */
+.icon-container img {
+    width: 100%;
+    height: auto;
+}
 </style>

@@ -18,14 +18,14 @@
             <hr>
         </div>  
     </div>
-    <div class="loader" style="min-height:50px">
-        <div class="lds-facebook" v-if="loading && !storeState.finished && !pluginState.finished"><div></div><div></div><div></div></div>
-    </div>
+    <spinner v-if="loading" />
 </form>
 </template>
 <script>
 import { store } from "@/store/themeStore.js";
 import { plugin } from "@/store/pluginStore.js";
+import EventBus from "@/event-bus.js";
+import Spinner from "@/components/spinner.vue"
 
 export default {
     data() {
@@ -39,9 +39,13 @@ export default {
     },
     methods: {
         validate(target){
+            this.loading = true
             store.reset()
             plugin.reset()
             target.trim()
+
+            EventBus.$emit( "reset" );
+
             axios
                 .post('/api/validate', {
                     target: target
@@ -52,10 +56,8 @@ export default {
                 .catch(error => {
                     this.hasError = true
                 } )
-
         },
         scan( target ) {
-            this.loading = true
             this.hasError = false
             // first get site html
             axios
@@ -64,112 +66,41 @@ export default {
                 })
                 .then(response => {
 
-                    console.log(response)  
+                    this.loading = false
+                    document.getElementById('report').scrollIntoView();
+
                     let data = response.data.data
+
+                    EventBus.$emit("scanned-site",  data );
 
                     // log this
                     axios
                         .post('/api/site', data)
                     
-                    if( data.plugins !== undefined ){
+                    /*if( data.plugins !== undefined ){
                         plugin.getAllData( data )
                     }else{
                         plugin.state.noPlugins = true
                         plugin.finish()
-                    }
+                    }*/
 
-                    if( data.theme !== undefined ){
+                    /*if( data.theme !== undefined ){
                         store.getTheme( data.theme )  
                     }else{
                         store.setNoTheme()
-                    }
-                    this.getIp( data.baseUrl )
-                    this.getApps( data.baseUrl )
+                    }*/
                 } )
                 .catch(error => {
                     console.log( error )
                 } )
                 .then( () => {
                     // always executed
-                    this.loading = false
+                    //this.loading = false
                 });             
-        },
-        getThemeScreenshot(theme) {
-            axios
-                .post('/api/wordpress/themeScreenshot', {
-                    theme: theme
-                })
-                .then(response => {
-                    //console.log(response.data.data)
-                } )
-                .catch(error => console.log( error.response ) )              
-        },
-        getApps(target) {
-            ////console.log(target)
-            axios
-                .post('/api/apps', {
-                    target: target
-                })
-                .then(response => {
-                    store.addApps(response.data.data)
-                } )
-                .catch(error => console.log( error.response ) )              
-        },
-        getIp(target) {
-            ////console.log(target)
-            axios
-                .post('api/ip', {
-                    target: target
-                })
-                .then(response => {
-                    store.addGeo(response.data)
-                } )
-                .catch(error => console.log( error.response ) )              
         }
+    },
+    components: {
+      Spinner
     }
-};
+}
 </script>
-
-<style>
-.loader {
-    display: block;
-    text-align: center;
-}
-.lds-facebook {
-  display: inline-block;
-  position: relative;
-  width: 40px;
-  height: 40px;
-}
-.lds-facebook div {
-  display: inline-block;
-  position: absolute;
-  left: 8px;
-  width: 16px;
-  background: #007bff;
-  animation: lds-facebook 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
-}
-.lds-facebook div:nth-child(1) {
-  left: 8px;
-  animation-delay: -0.24s;
-}
-.lds-facebook div:nth-child(2) {
-  left: 32px;
-  animation-delay: -0.12s;
-}
-.lds-facebook div:nth-child(3) {
-  left: 56px;
-  animation-delay: 0;
-}
-@keyframes lds-facebook {
-  0% {
-    top: 8px;
-    height: 64px;
-  }
-  50%, 100% {
-    top: 24px;
-    height: 32px;
-  }
-}
-
-</style>

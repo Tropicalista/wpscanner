@@ -1,14 +1,15 @@
 <template>
-<div v-if="storeState.finished" class="mb-5">
-  <div v-if="storeState.finished" class="row">
+<div v-if="show" class="mb-5">
+  <div class="row">
       <div class="col-md-12">
           <h2 class="pb-2">Plugins</h2>
-          <div class="alert alert-danger" role="alert" v-if="!storeState.pluginList.length">
+          <spinner v-if="loading" />
+          <div class="alert alert-danger" role="alert" v-if="!pluginList.length && !loading">
             No WordPress Plugin found!
           </div>
       </div>
   </div>
-  <div class="card mb-3 shadow-sm" v-for="p in storeState.pluginList">
+  <div class="card mb-3 shadow-sm" v-for="p in pluginList">
       <div class="row no-gutters">
         <div class="col-md-4">
           <a :href="getUrl(p)" target="_blank">
@@ -27,30 +28,89 @@
 </div>
 </template>
 <script>
-import { plugin } from '@/store/pluginStore.js'
+import EventBus from "@/event-bus.js";
+import Spinner from "@/components/spinner.vue"
 
 export default {
     data() {
         return {
-            storeState: plugin.state
+            slugs: [],
+            show: false,
+            loading: false,
+            plugins: [],
+            baseUrl: "",
+            pluginList: []
         };
+    },
+    mounted() {
+        EventBus.$on("reset", (data) => {
+          this.show = false
+          this.reset()
+        })
+        EventBus.$on("scanned-site", (data) => {
+          this.show = true
+          this.loading = true
+          this.getPlugins( data )
+        })
     },
     methods:{
       getUrl( plugin ){
         return '/out/plugin/' + plugin.slug
-        if( plugin.homepage ){
-          return plugin.homepage
+      },
+      getPlugins(data){
+        this.baseUrl = data.baseUrl
+        if(!data.plugins.length){
+          this.loading = false
+          return
         }
-        if( plugin.profile ){
-          return plugin.profile
-        }
-      }
+        this.slugs = data.plugins
+        return Promise.all( this.slugs.map( this.fetchData ) )
+          .then( resp => {
+            this.plugins = resp
+            this.askToDB()
+          })
+      },
+      fetchData( plugin ) {
+        return axios
+          .get( 'https://api.wordpress.org/plugins/info/1.2/?action=plugin_information&request[slug]=' + plugin)
+          .then(function(response) {
+            // if not found add to array notFound
+            if(response.data.error){
+              response.data = {
+                notFound: true,
+                slug: plugin,
+              }
+            }
+            return response.data
+          })
+          .catch(function(error) {
+            return { success: false, error: error };
+          });
+      },
+      askToDB(){
+        axios.post('/api/plugins', { 
+          plugins: this.plugins,
+          slugs: this.slugs,
+          baseUrl: this.baseUrl
+        } )
+        .then( resp => {
+            this.pluginList = resp.data
+            if(!this.pluginList.length){
+              this.noPlugins = false
+            }
+            this.loading = false
+        })
+      },
+      reset(){
+        this.pluginList = []
+        this.basseUrl = ""
+        this.plugins = []
+        this.loading = false
+        this.show = false
+      },
+    },
+    components: {
+      Spinner
     }
 };
 </script>
-
-<style>
-    h1 {
-        color: green;
-    }
-</style>

@@ -1,18 +1,19 @@
 <template>
-<div v-if="storeState.finished" class="mb-5">
-    <div v-if="storeState.finished" class="row">
+<div v-if="show" class="mb-5">
+    <div class="row">
         <div class="col-md-12">
             <h2 class="pb-2">Themes</h2>
-            <div class="alert alert-danger" role="alert" v-if="storeState.noTheme">
+            <spinner v-if="loading" />
+            <div class="alert alert-danger" role="alert" v-if="!loading && !themes.length">
               No WordPress Theme found!
             </div>
         </div>
     </div>
-    <div v-for="t in storeState.themes" class="card mb-3 shadow-sm">
+    <div v-for="t in themes" class="card mb-3 shadow-sm">
         <div class="row no-gutters">
             <div class="col-md-4">
                 <a :href="getUrl( t )" target="_blank">
-                    <img :src="t.screenshot" class="card-img" v-if="t.name">
+                    <img :src="t.screenshot" class="card-img" v-if="t.screenshot">
                     <svg v-else class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
                         <title>Placeholder</title>
                         <rect width="100%" height="100%" fill="#55595c"></rect>
@@ -28,9 +29,9 @@
                         <li><b>Description:</b> {{t.description | truncate }}</li>
                         <li><b>Author:</b> {{t.author}}</li>
                         <li><b>Version:</b> {{t.version}}</li>
-                        <li><b>Url:</b> <a :href="getUrl( t )" target="_blank">{{t.theme_uri}}</a></li>
+                        <li><b>Url:</b> <a :href="getUrl( t )" target="_blank">{{t.themeUri}}</a></li>
                     </ul>
-                    <h3 v-else>Cannot found a theme on this site, sorry!</h3>
+                    <h3 v-else>We have found a WordPress theme on this site, but cannot find any additional informations. Sorry!</h3>
                 </div>
             </div>
         </div>
@@ -39,30 +40,72 @@
 
 </template>
 <script>
-import { store } from "@/store/themeStore.js";
+import EventBus from "@/event-bus.js";
+import Spinner from "@/components/spinner.vue"
 
 export default {
     data() {
         return {
-            storeState: store.state
+            show: false,
+            loading: false,
+            themes: []
         };
     },
+    mounted() {
+        EventBus.$on("reset", (data) => {
+          this.show = false
+          this.reset()
+        })
+        EventBus.$on("scanned-site", (data) => {
+          this.show = true
+          this.loading = true
+          this.getTheme( data )
+        })
+    },
     methods:{
-      getUrl( theme ){
-        return '/out/theme/' + theme.slug
-        if( theme.homepage ){
-          return theme.homepage
+        getUrl( theme ){
+            return '/out/theme/' + theme.slug
+        },
+        getTheme( data ) {
+            axios
+            .post('/api/wordpress/theme', {
+                theme: data.theme
+            })
+            .then( ( response ) => {
+                this.themes = response.data.data
+                // get or insert from database so we can have referral links
+                this.getThemeFromDB( this.themes )
+            } )
+            .catch( ( error ) => { 
+                this.finish()
+                console.log( error ) 
+            } )              
+        },
+        getThemeFromDB( theme ) {
+            axios
+            .post('/api/themeFromDb', {
+                theme: theme
+            })
+            .then(response => {
+                this.themes = response.data 
+                this.finish()
+            } )
+            .catch( ( error ) => { 
+                this.finish()
+                console.log( error ) 
+            } )              
+        },
+        finish() {
+            this.loading = false
+        },
+        reset() {
+            this.loading = false
+            this.show = false
+            this.themes = []
         }
-        if( theme.profile ){
-          return theme.profile
-        }
-      }
+    },
+    components: {
+        Spinner
     }
-};
+}
 </script>
-
-<style>
-    h1 {
-        color: green;
-    }
-</style>

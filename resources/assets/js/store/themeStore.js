@@ -2,8 +2,6 @@ export const store = {
   state: {
     finished: false,
     noTheme: false,
-    geo: {},
-    apps: [],
     themes: [],
     plugins: []
   },
@@ -13,7 +11,6 @@ export const store = {
   reset() {
     this.state.finished = false
     this.state.noTheme = false
-    this.state.apps = []
     this.state.themes = []
     this.state.plugins = []
   },
@@ -22,12 +19,6 @@ export const store = {
       this.setNoTheme()
     }
     this.state.themes = themes
-  },
-  addApps(apps) {
-    this.state.apps = apps
-  },
-  addGeo(geo) {
-    this.state.geo = geo
   },
   finish(){
     this.state.finished = true
