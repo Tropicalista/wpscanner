@@ -6,7 +6,7 @@
       <li class="list-group-item">IP: {{geo.ip}}</li>
       <li class="list-group-item">City: {{geo.city}}</li>
       <li class="list-group-item">Region: {{geo.region}}</li>
-      <li class="list-group-item">Country: <img :src="'/includes/images/flags/' + geo.country + '.png'" /> {{geo.country}}</li>
+      <li class="list-group-item">Country: <img :src="'/includes/images/flags/' + geo.country.toLowerCase() + '.png'" /> {{geo.country}}</li>
       <li class="list-group-item">Postal Code: {{geo.postal}}</li>
       <li class="list-group-item">European Union: {{geo.in_eu}}</li>
       <li class="list-group-item">Latitude/Longitude: {{geo.latitude}}/{{geo.longitude}}</li>
