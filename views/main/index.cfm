@@ -44,7 +44,7 @@
           <tbody>
             <cfloop array="#rc.lastChecked#" index="site">
             <tr>
-              <td><a :href="site.getUrl()">#site.getUrl()#</a></td>
+              <td><a href="#site.getUrl()#">#site.getUrl()#</a></td>
             </tr>
             </cfloop>
           </tbody>
