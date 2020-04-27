@@ -24,7 +24,7 @@ component extends="quick.models.BaseEntity" accessors="true" {
         return belongsTo( "Provider@admin" );
     }
 
-    function setUpdatedDate( value ) {
+    function setUpdatedDate() {
         return { value = now(), cfsqltype = "CF_SQL_TIMESTAMP" };
     }
 

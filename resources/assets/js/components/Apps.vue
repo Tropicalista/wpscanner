@@ -64,8 +64,8 @@ export default {
 
 <style>
 .icon-container {
-    width: 30px;
-    height: 30px;
+    width: 20px;
+    height: 20px;
     display: inline-block;
 }
 /* resize images */

@@ -62,52 +62,54 @@ component{
 
 		for(p in rc.plugins){
 
+				var fields = "name, author, description, banners";
+				p.updatedDate = { "value" = now(), cfsqltype = "CF_SQL_TIMESTAMP" }
+				var data = p.filter( function(d){
+					return ListContains( fields, d );
+					return len( p[d] )
+				} )
+/*
+				getInstance("Plugin@admin")
+					.where( 'slug', p.slug )
+					.updateOrInsert( data )
+
+
 			// some clean up
 			if( structKeyExists( p, 'notFound' ) ){
 				var data = getInstance("Plugin@admin").getMemento();
 				data.slug = p.slug;
 				structAppend( p, data, true );
 			}
+*/
+			if( structKeyExists( data, 'notFound' ) ){
+				structDelete( data, "notFound" );
+			}
 			if( structKeyExists( p, 'name' ) ){
-				p.name = DecodeForHTML( p.name );
+				data.name = DecodeForHTML( p.name );
 			}
 			if( structKeyExists( p, 'author' ) ){
-				p.author = reReplaceNoCase( p.author, "<[^>]*>", "", "All" );
+				data.author = reReplaceNoCase( p.author, "<[^>]*>", "", "All" );
 			}
 			if( structKeyExists( p, 'sections' ) ){
-				p.description = Left( reReplaceNoCase( DecodeForHTML( p.sections.description ), "<[^>]*>", "", "All" ), 500);
+				data.description = Left( reReplaceNoCase( DecodeForHTML( p.sections.description ), "<[^>]*>", "", "All" ), 500);
 			}
 			if( structKeyExists( p, 'banners' ) ){
 				if( isArray( p.banners ) ){
-					p.screenshot = "";
+					data.screenshot = "";
 				}else{
-					p.screenshot = structKeyExists( p.banners, 'low' ) ? p.banners.low : "";	
+					data.screenshot = structKeyExists( p.banners, 'low' ) ? p.banners.low : "";	
 				}
 			}else{
-				p.screenshot = "";
+				data.screenshot = "";
 			}
 			if( structKeyExists( p, 'name' ) ){
-				p.repository = "wordpress";
+				data.repository = "wordpress";
 			}
 			if( structKeyExists( rc, 'baseUrl' ) ){
-				p.lastFoundOn = rc.baseUrl;
+				data.lastFoundOn = rc.baseUrl;
 			}
-			p.hits = query.raw( "hits + 1" );
-			p.updatedDate = Now() //{ value = now(), cfsqltype = "CF_SQL_TIMESTAMP" }
-
-			getInstance("Plugin@admin").where( 'slug', p.slug ).updateOrInsert( {
-				slug = p.slug,
-				name = p.name,
-				author = p.author,
-				homepage = p.homepage,
-				description = p.description,
-				screenshot = p.screenshot,
-				repository = p.repository,
-				lastFoundOn = p.lastFoundOn,
-				hits = query.raw( "hits + 1" ),
-				updatedDate = { value = now(), cfsqltype = "CF_SQL_TIMESTAMP" }
-
-			});
+			data.hits = query.raw( "hits + 1" );
+			data.updatedDate = { value = now(), cfsqltype = "CF_SQL_TIMESTAMP" }
 
 		}	
 

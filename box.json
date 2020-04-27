@@ -73,8 +73,8 @@
             "connectionString":"${DB_CONNECTIONSTRING}",
             "class":"${DB_CLASS}",
             "username":"${DB_USER}",
-            "bundleName": "${DB_BUNDLENAME}", 
-            "bundleVersion": "${DB_BUNDLEVERSION}"
+            "bundleName":"${DB_BUNDLENAME}",
+            "bundleVersion":"${DB_BUNDLEVERSION}"
         },
         "defaultGrammar":"AutoDiscover@qb"
     }
