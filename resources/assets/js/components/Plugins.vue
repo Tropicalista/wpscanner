@@ -59,7 +59,7 @@ export default {
       },
       getPlugins(data){
         this.baseUrl = data.baseUrl
-        if(!data.plugins.length){
+        if(!data.plugins){
           this.loading = false
           return
         }

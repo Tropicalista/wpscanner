@@ -29,6 +29,11 @@ export default {
           this.target = data.baseUrl
           this.getApps( this.target )
         })
+        EventBus.$on("reset", (data) => {
+          this.loading = true
+          this.target = data.baseUrl
+          this.getApps( this.target )
+        })
     },
     methods: {
         getApps(target) {
@@ -44,7 +49,12 @@ export default {
                     this.loading = false
                     console.log( error.response ) 
                 } )              
-        }
+        },
+        reset(){
+            this.apps = []
+            this.target = ""
+            this.loading = false
+        },
     },
     components: {
         Spinner
