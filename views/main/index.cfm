@@ -29,20 +29,7 @@
     <div class="row py-2">
       
       <div class="col-md-6">
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">Last checked</th>
-            </tr>
-          </thead>
-          <tbody>
-            <cfloop array="#rc.lastChecked#" index="site">
-            <tr>
-              <td>#site.getUrl()#</td>
-            </tr>
-            </cfloop>
-          </tbody>
-        </table>
+        <a href="https://it.siteground.com/go/z32en34exu" target="_blank"><img border="0" src="https://uapi.siteground.com/img/affiliate/en/NOPRICE/general_EN_general-hosting-square-light.jpg"></a>
       </div>
       
       <div class="col-md-6">
