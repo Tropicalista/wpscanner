@@ -29,24 +29,22 @@
     <div class="row py-2">
       
       <div class="col-md-6">
+        <h2>Best Hosting</h2>
         <a href="https://it.siteground.com/go/z32en34exu" target="_blank"><img border="0" src="https://uapi.siteground.com/img/affiliate/en/NOPRICE/general_EN_general-hosting-medium-rectangle-light.jpg"></a>      
       </div>
       
       <div class="col-md-6">
+        <h2>Last checked</h2>
         <table class="table">
           <thead>
             <tr>
               <th scope="col">Site</th>
-              <th scope="col">Theme</th>
-              <th scope="col">Plugins</th>
             </tr>
           </thead>
           <tbody>
             <cfloop array="#rc.lastChecked#" index="site">
             <tr>
               <td>#site.getUrl()#</td>
-              <td>the Bird</td>
-              <td>@twitter</td>
             </tr>
             </cfloop>
           </tbody>
