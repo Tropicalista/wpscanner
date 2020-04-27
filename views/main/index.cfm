@@ -29,7 +29,7 @@
     <div class="row py-2">
       
       <div class="col-md-6">
-        <a href="https://it.siteground.com/go/z32en34exu" target="_blank"><img border="0" src="https://uapi.siteground.com/img/affiliate/en/NOPRICE/general_EN_general-hosting-square-light.jpg"></a>
+        <a href="https://it.siteground.com/go/z32en34exu" target="_blank"><img border="0" src="https://uapi.siteground.com/img/affiliate/en/NOPRICE/general_EN_general-hosting-medium-rectangle-light.jpg"></a>      
       </div>
       
       <div class="col-md-6">
