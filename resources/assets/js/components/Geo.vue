@@ -36,6 +36,9 @@ export default {
           this.loading = true
           this.target = data.baseUrl
           this.getIp( this.target )
+        }),
+        EventBus.$on("reset", (data) => {
+          this.target = ""
         })
     },
     methods: {

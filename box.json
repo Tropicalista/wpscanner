@@ -28,7 +28,7 @@
         "socialite":"^1.3.3",
         "cbpaginator":"^2.0.0",
         "qb":"^7.6.0",
-        "quick":"^2.5.7",
+        "quick":"3.0.0-beta.4",
         "cfmigrations":"^2.0.3"
     },
     "devDependencies":{

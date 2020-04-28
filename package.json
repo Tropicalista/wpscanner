@@ -3,6 +3,7 @@
     "devDependencies": {
         "@babel/plugin-syntax-dynamic-import": "^7.2.0",
         "@babel/plugin-syntax-jsx": "^7.8.3",
+        "@fullhuman/postcss-purgecss": "^2.1.2",
         "babel-helper-vue-jsx-merge-props": "^2.0.3",
         "babel-plugin-transform-vue-jsx": "^4.0.1",
         "coldbox-elixir": "^3.1.2",

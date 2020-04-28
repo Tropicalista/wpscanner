@@ -30,9 +30,7 @@ export default {
           this.getApps( this.target )
         })
         EventBus.$on("reset", (data) => {
-          this.loading = true
-          this.target = data.baseUrl
-          this.getApps( this.target )
+          this.target = ""
         })
     },
     methods: {

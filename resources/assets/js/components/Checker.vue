@@ -3,13 +3,10 @@
     <div class="form-group">
         <label for="exampleInputEmail1">Insert website address</label>
         <div class="input-group mb-3">
-            <input type="text" class="form-control" :class="{ 'is-invalid' : hasError }" placeholder="https://www.example.com" aria-label="Recipient's username" aria-describedby="basic-addon2" v-model="target" v-on:keyup.enter="validate(target)" @keydown.space.prevent>
+            <input type="text" class="form-control" :class="{ 'is-invalid' : hasError }" placeholder="Enter site Url" aria-label="Recipient's username" aria-describedby="basic-addon2" v-model="target" v-on:keyup.enter="validate(target)" @keydown.space.prevent>
             <div class="input-group-append">
                 <button class="btn btn-primary" type="button" bnvb v-on:click="validate(target)">GO
-                    <svg class="bi bi-chevron-double-right" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                      <path fill-rule="evenodd" d="M3.646 1.646a.5.5 0 01.708 0l6 6a.5.5 0 010 .708l-6 6a.5.5 0 01-.708-.708L9.293 8 3.646 2.354a.5.5 0 010-.708z" clip-rule="evenodd"/>
-                      <path fill-rule="evenodd" d="M7.646 1.646a.5.5 0 01.708 0l6 6a.5.5 0 010 .708l-6 6a.5.5 0 01-.708-.708L13.293 8 7.646 2.354a.5.5 0 010-.708z" clip-rule="evenodd"/>
-                    </svg>
+                    <span v-if="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                 </button>
             </div>            
             <div class="invalid-feedback">
@@ -18,7 +15,6 @@
             <hr>
         </div>  
     </div>
-    <spinner v-if="loading" />
 </form>
 </template>
 <script>
@@ -39,10 +35,12 @@ export default {
     },
     methods: {
         validate(target){
-            this.loading = true
             store.reset()
-            plugin.reset()
-            target.trim()
+            if( !target.trim() ){
+                this.hasError = true
+                return
+            }
+            this.loading = true
 
             EventBus.$emit( "reset" );
 
@@ -55,6 +53,7 @@ export default {
                 } )
                 .catch(error => {
                     this.hasError = true
+                    this.loading = false
                 } )
         },
         scan( target ) {

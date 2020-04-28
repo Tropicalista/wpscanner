@@ -13,7 +13,7 @@ component extends="quick.models.BaseEntity" {
     property name="tags";
     property name="referralUrl" column="referral_url";
     property name="hits" default="1";
-    property name="hasReferral";
+    property name="hasReferral" persistent="false";
     property name="repository";
 
     function getThemeUri(){

@@ -62,7 +62,7 @@ component{
 
 		for(p in rc.plugins){
 
-				var fields = "name, author, description, banners";
+				var fields = "name, author, description, slug";
 				p.updatedDate = { "value" = now(), cfsqltype = "CF_SQL_TIMESTAMP" }
 				var data = p.filter( function(d){
 					return ListContains( fields, d );
@@ -110,6 +110,10 @@ component{
 			}
 			data.hits = query.raw( "hits + 1" );
 			data.updatedDate = { value = now(), cfsqltype = "CF_SQL_TIMESTAMP" }
+
+			getInstance("Plugin@admin")
+				.where( 'slug', p.slug )
+				.updateOrInsert( data )
 
 		}	
 
