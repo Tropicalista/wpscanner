@@ -2,7 +2,10 @@ component extends="coldbox.system.EventHandler"{
 
 	// Default Action
 	function index(event,rc,prc){
-		rc.lastChecked = getInstance( "site@admin" ).limit( 10 ).get();
+		rc.lastChecked = getInstance( "site@admin" )
+							.limit( 10 )
+    						.orderBy( "updatedDate", "desc" )
+							.get();
 		event.setView( "main/index" );
 	}
 
