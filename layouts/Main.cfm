@@ -43,7 +43,7 @@
       <p class="float-right">
         <a href="/##">Back to top</a>
       </p>
-      <p>Made in Italy.</p>
+      <p>&##169; 2020 Made in <img src="/includes/images/flags/it.png" class="align-middle pb-1" /></p>
     </div>
   </footer>
 

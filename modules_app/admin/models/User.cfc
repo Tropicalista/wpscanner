@@ -9,7 +9,6 @@ component extends="BaseEntity" {
     property name="password";
     property name="createdDate" column="created_date";
     property name="modifiedDate" column="modified_date";
-    property name="lastLoggedIn" column="last_logged_in";
 
     public User function retrieveUserByUsername( required string email ){
         return newEntity().where( "email", arguments.email ).firstOrFail();
@@ -25,8 +24,6 @@ component extends="BaseEntity" {
 
     public boolean function isValidCredentials( required string email, required string password ){
         var user = newEntity().where( "email", arguments.email ).first();
-        //dump(newEntity().where( "email", arguments.email ).first());
-        //abort;
         if ( isNUll( user ) ) {
             return false;
         }

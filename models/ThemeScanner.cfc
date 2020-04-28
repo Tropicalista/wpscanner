@@ -148,16 +148,22 @@ component accessors="true"{
 		
 		var req = makeRequest( arguments.styleUrl );
 
-		var theme = {};
+		var theme = {
+			name = uCase( arguments.slug )
+		};
 		var props = ["Theme Name", "Theme URI", "Author", "Author URI", "Description", "Version", "Tags", "Template", "License", "Text Domain"];
 
 		if( req.isSuccess() ){
 
-			var content = req.getData();
+			var data = req.getData();
+			content = reMatchNoCase( "^\/\*(.*?)\*\/", data)
 
-			for( p in props ){
-				theme[ lCase( replace( p, " ", "_" ) ) ] = getThemeInfo( p , content );
+			if( ! ArrayLen(content) ){
+				return theme;
 			}
+
+			theme = getThemeInfo( content[1] )
+
 			if( !( theme.theme_name.len() ) ){ theme.theme_name = arguments.slug }
 
 			return theme;
@@ -221,16 +227,29 @@ component accessors="true"{
 	/**
 	 * get Theme Infos
 	 */
-	function getThemeInfo( required string info, required string content ){
+	function getThemeInfo( required string content ){
 
-		var regex = arguments.info & "\s?:\s?[^\n\r]+";
-		
-		var res = reMatchNoCase( regex, arguments.content );
-		res = res.len() ? res[1] : "";
+		var arr = listToArray(content, "#chr(10)##chr(13)#")
+		var theme = {};
 
-        if ( res.len() > 800 AND !( FindNoCase( 'description', info ) ) ) return ""; 
+		var  = arr.map(function( row ){ 
 
-		return trim( reReplaceNoCase( res, arguments.info & "\s?:", "" ) );
+			var v = listToArray(row, ":")
+
+			if( arrayLen( v ) GT 1 ){
+				var key = lCase( replace( trim( v[1] ), " ", "_" ) )
+				arrayDeleteAt( v, 1 );
+				return {
+					"#key#" = arrayToList( v, ":" )
+				}
+			}
+		}).filter( ( row ) => { // removes empty fields
+			return len( row );
+		}).each( ( d ) => { // create the struct
+			structAppend( theme, d );
+		})
+
+		return theme;
 	}
 	
 	/**

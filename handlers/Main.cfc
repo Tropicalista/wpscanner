@@ -20,7 +20,7 @@ component extends="coldbox.system.EventHandler"{
 		}
 
 		if( !isNull( obj ) ){
-			var referralUrl = obj.getMemento().referralUrl
+			var referralUrl = obj.getReferralUrl()
 			if( !len( referralUrl ) ){
 				location( "/", "no", 301 );
 			}
@@ -31,7 +31,40 @@ component extends="coldbox.system.EventHandler"{
 	}
 
 	function template(event,rc,prc){
-		//dump(rc.lastChecked);
+		r = getInstance("hyperBuilder@hyper").get( "https://generatepress.com/wp-content/themes/generatepress/style.css" )
+
+		data = r.getData();
+
+		s = reMatchNoCase( "^\/\*(.*?)\*\/", data)
+		dump(s)
+
+		
+		arr = listToArray(s[1], "#chr(10)##chr(13)#")
+
+		/*arr.filter( (r) => {
+			return listContains(r, ":")
+		} )*/
+		c = arr.map(function( row ){ 
+
+			v = listToArray(row, ":")
+			dump(v)
+			if( arrayLen(v) GT 1){
+				key = lCase( replace( v[1], " ", "_" ) )
+				arrayDeleteAt(v, 1)
+				return {
+					"#key#" = arrayToList(v,":")
+				}
+			}
+
+		}).filter( (a) => {
+			return len(a)
+		})
+
+		dump(c)
+
+		d = getInstance("StreamBuilder@cbstreams").new(s[1]).collect()
+		dump(d)
+		abort;
 		event.setView( "main/template" );
 	}
 

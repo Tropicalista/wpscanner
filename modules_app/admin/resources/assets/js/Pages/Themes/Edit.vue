@@ -11,14 +11,14 @@
           <text-input v-model="form.name" :errors="$page.errors.name" class="pr-6 pb-8 w-full lg:w-1/2" label="Name" />
           <text-input v-model="form.slug" :errors="$page.errors.slug" class="pr-6 pb-8 w-full lg:w-1/2" label="Slug" />
           <text-input v-model="form.author" :errors="$page.errors.author" class="pr-6 pb-8 w-full lg:w-1/2" label="Author" />
-          <text-input v-model="form.theme_uri" :errors="$page.errors.theme_uri" class="pr-6 pb-8 w-full lg:w-1/2" label="Theme Uri" />
-          <text-input v-model="form.referral_url" :errors="$page.errors.referral_url" class="pr-6 pb-8 w-full lg:w-1/2" label="Referral Url" />
+          <text-input v-model="form.themeUri" :errors="$page.errors.theme_uri" class="pr-6 pb-8 w-full lg:w-1/2" label="Theme Uri" />
+          <text-input v-model="form.referralUrl" :errors="$page.errors.referral_url" class="pr-6 pb-8 w-full lg:w-1/2" label="Referral Url" />
           <select-input v-model="form.provider" :errors="$page.errors.providers" class="pr-6 pb-8 w-full lg:w-1/2" label="Provider">
             <option :value="null" />
             <option v-for="p in providers" :value="p.id">{{p.name}}</option>
           </select-input>
           <text-area-input v-model="form.description" :errors="$page.errors.description" class="pr-6 pb-8 w-full" label="Description" />          
-          <text-input v-model="form.screenshot.low" :errors="$page.errors.screenshot" class="pr-6 pb-8 w-full lg:w-1/2" label="ScreenShot" />
+          <text-input v-model="form.screenshot" :errors="$page.errors.screenshot" class="pr-6 pb-8 w-full lg:w-1/2" label="ScreenShot" />
           <text-input v-model="form.repository" :errors="$page.errors.repository" class="pr-6 pb-8 w-full lg:w-1/2" label="Repository" />
         </div>
         <div class="px-8 py-4 bg-grey-lightest border-t border-grey-lighter flex items-center">

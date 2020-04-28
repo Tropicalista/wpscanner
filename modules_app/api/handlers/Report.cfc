@@ -33,12 +33,14 @@ component{
 			arrayAppend( slugs, t.slug );
 
 			//if( ! findNoCase( "-child", t.slug ) ){
+				var list = "slug,theme_name,theme_uri,author,author_uri,description,version,tags,template,license,text_domain,screenshot";
 
 				var data = t.filter( function(d){
-					return len( t[d] )
+					return len( t[d] ) AND listContains( list, d );
 				} )
 				structDelete( data, "text_domain" );
 				structDelete( data, "template" );
+				structDelete( data, "license_uri" );
 				data.hits = query.raw( "hits + 1" )
 				
 				getInstance("Theme@admin")

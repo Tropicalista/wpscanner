@@ -33,7 +33,7 @@ component extends="quick.models.BaseEntity" {
     function getReferralUrl( value ){
 
         if( ! len( retrieveAttribute( "referralUrl" ) ) ){
-            return variables.themeUri
+            return len( variables.themeUri ) ? variables.themeUri : variables.authorUri
         }
 
         return retrieveAttribute( "referralUrl" );

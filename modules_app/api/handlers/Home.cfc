@@ -45,8 +45,10 @@ component extends="BaseHandler"{
 	 * Home page
 	 */
 	function theme( event, rc, prc ){
-
-		var result = themeScanner.getTheme( rc.theme );
+		var result = {}
+		if( ! isNull( rc.theme ) ){
+			result = themeScanner.getTheme( rc.theme );
+		}
 
 		prc.response.setData( result );
 
