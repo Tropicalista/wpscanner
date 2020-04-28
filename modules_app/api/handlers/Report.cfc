@@ -32,7 +32,7 @@ component{
 
 			arrayAppend( slugs, t.slug );
 
-			if( ! findNoCase( "-child", t.slug ) ){
+			//if( ! findNoCase( "-child", t.slug ) ){
 
 				var data = t.filter( function(d){
 					return len( t[d] )
@@ -45,7 +45,7 @@ component{
 					.where( 'slug', t.slug )
 					.updateOrInsert( data )
 
-			}
+			//}
 
 		}
 
