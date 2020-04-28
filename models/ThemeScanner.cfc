@@ -149,7 +149,7 @@ component accessors="true"{
 		var req = makeRequest( arguments.styleUrl );
 
 		var theme = {
-			name = uCase( arguments.slug )
+			theme_name = uCase( arguments.slug )
 		};
 		var props = ["Theme Name", "Theme URI", "Author", "Author URI", "Description", "Version", "Tags", "Template", "License", "Text Domain"];
 
@@ -162,7 +162,9 @@ component accessors="true"{
 				return theme;
 			}
 
-			theme = getThemeInfo( content[1] )
+			var themeInfo = getThemeInfo( content[1] )
+
+			structAppend( theme, themeInfo, true );
 
 			if( !( theme.theme_name.len() ) ){ theme.theme_name = arguments.slug }
 
