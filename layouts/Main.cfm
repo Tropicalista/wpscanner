@@ -3,8 +3,8 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>WpScanner - Find what theme or plugins a site's using</title>
-  <meta name="description" content="ColdBox Application Template">
+  <title>WpDetector - Find what theme or plugins a site is using</title>
+  <meta name="description" content="Did you ever wonder what WordPress theme or plugins is that awesome site using? WP Detector is a free online tool to find theme or plugins you like.">
   <meta name="author" content="Ortus Solutions, Corp">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
