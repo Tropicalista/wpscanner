@@ -31,6 +31,7 @@ export default {
         })
         EventBus.$on("reset", (data) => {
           this.target = ""
+          this.apps = []
         })
     },
     methods: {

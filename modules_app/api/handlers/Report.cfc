@@ -15,7 +15,8 @@ component{
 			.updateOrInsert({
 				url = rc.baseUrl,
 				plugins = structKeyExists( rc, 'plugins' ) ? serializeJson(rc.plugins) : "",
-				themes = structKeyExists( rc, 'theme' ) ? serializeJson(rc.theme) : ""
+				themes = structKeyExists( rc, 'theme' ) ? serializeJson(rc.theme) : "",
+				updatedDate = { value = now(), cfsqltype = "CF_SQL_TIMESTAMP" }
 		});		
 		return { success = true };
 	}
@@ -42,7 +43,8 @@ component{
 				structDelete( data, "template" );
 				structDelete( data, "license_uri" );
 				data.hits = query.raw( "hits + 1" )
-				
+				//data.updatedDate = { value = now(), cfsqltype = "CF_SQL_TIMESTAMP" }
+
 				getInstance("Theme@admin")
 					.where( 'slug', t.slug )
 					.updateOrInsert( data )
@@ -111,7 +113,7 @@ component{
 				data.lastFoundOn = rc.baseUrl;
 			}
 			data.hits = query.raw( "hits + 1" );
-			data.updatedDate = { value = now(), cfsqltype = "CF_SQL_TIMESTAMP" }
+			//data.updatedDate = { value = now(), cfsqltype = "CF_SQL_TIMESTAMP" }
 
 			getInstance("Plugin@admin")
 				.where( 'slug', p.slug )

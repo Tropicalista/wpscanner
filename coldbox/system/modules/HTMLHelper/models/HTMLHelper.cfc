@@ -2367,7 +2367,7 @@ component extends="coldbox.system.FrameworkSupertype" accessors=true singleton{
 		var manifestPath = 	arguments.version == 3 ?
 							"#appPath##includesLocation#/rev-manifest.json" :
 							"#appPath##includesLocation#/#arguments.buildDirectory#/rev-manifest.json";
-
+							
 		// Do we have a manifest override?
 		if( len( arguments.manifestRoot ) ){
 			manifestPath = controller.locateFilePath( "#arguments.manifestRoot#/rev-manifest.json" );

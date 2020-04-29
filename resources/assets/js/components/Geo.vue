@@ -39,6 +39,7 @@ export default {
         }),
         EventBus.$on("reset", (data) => {
           this.target = ""
+          this.geo = {}
         })
     },
     methods: {
