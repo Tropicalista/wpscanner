@@ -31,39 +31,16 @@ component extends="coldbox.system.EventHandler"{
 	}
 
 	function template(event,rc,prc){
-		r = getInstance("hyperBuilder@hyper").get( "https://generatepress.com/wp-content/themes/generatepress/style.css" )
+		r = getInstance("Parser")
 
-		data = r.getData();
+cfhttp(method="GET", charset="utf-8", url="https://woocommerce.com", result="result") {
+    cfhttpparam(name="q", type="url", value="cfml");
+}
+		c = r.getPaths(result.filecontent, "woocommerce.com");
+		dump(c);
 
-		s = reMatchNoCase( "^\/\*(.*?)\*\/", data)
-		dump(s)
-
-		
-		arr = listToArray(s[1], "#chr(10)##chr(13)#")
-
-		/*arr.filter( (r) => {
-			return listContains(r, ":")
-		} )*/
-		c = arr.map(function( row ){ 
-
-			v = listToArray(row, ":")
-			dump(v)
-			if( arrayLen(v) GT 1){
-				key = lCase( replace( v[1], " ", "_" ) )
-				arrayDeleteAt(v, 1)
-				return {
-					"#key#" = arrayToList(v,":")
-				}
-			}
-
-		}).filter( (a) => {
-			return len(a)
-		})
-
-		dump(c)
-
-		d = getInstance("StreamBuilder@cbstreams").new(s[1]).collect()
-		dump(d)
+		dump(r.getSlugs(c, "plugins"))
+		dump(r.getSlugs(c, "themes"))
 		abort;
 		event.setView( "main/template" );
 	}

@@ -60,9 +60,11 @@ component accessors="true"{
 		var result = [];
 		for( t in themes ){
 			var temp = getThemeByStyle( t.themeurl & "/style.css?ver=23", t.slug );
-			temp.screenshot = getThemeScreenshot( t.themeurl );
-			temp.slug = t.slug;
-			arrayAppend( result, temp );
+			if( isStruct( temp ) ){
+				temp.screenshot = getThemeScreenshot( t.themeurl );
+				temp.slug = t.slug;
+				arrayAppend( result, temp );
+			}
 		}
 
 		return result;
@@ -156,6 +158,7 @@ component accessors="true"{
 		if( req.isSuccess() ){
 
 			var data = req.getData();
+			// get only content between css comments
 			content = reMatchNoCase( "^\/\*(.*?)\*\/", data)
 
 			if( ! ArrayLen(content) ){
@@ -169,6 +172,8 @@ component accessors="true"{
 			if( !( theme.theme_name.len() ) ){ theme.theme_name = arguments.slug }
 
 			return theme;
+		}else{
+			return false;
 		}
 
 		for( p in props ){
@@ -183,10 +188,15 @@ component accessors="true"{
 	 * @body The http body response
 	 */
 	function getCSSpath( required string body ){
+
+		//dump( rematch("<(script|link).*?\/themes\/.*?\/", str ) )
+		// Probably better have full paths before
+		// <(script|link).*?\/wp-content\/(themes|plugins)\/.*?(?=\/)
+
 		var linkArr = reMatchNoCase("<link(.*?)/?>", arguments.body);
 		var resArr = [];
 		linkArr.each(function(a){
-			var match = reMatchNoCase("href=['""].*\/themes\/", a);
+			var match = reMatchNoCase("href=['""].*/wp-content/themes/", a);
 			if( len(match) ){
 				arrayAppend( resArr, reReplace( match[1], "href=['""']", "" ) );
 			};
@@ -200,10 +210,10 @@ component accessors="true"{
 	 */
 	function getPluginsSlug( required string body ){
 
-		var dom = reMatchNoCase( "/plugins/(.*?)(?=/)", arguments.body );
+		var dom = reMatchNoCase( "/wp-content/plugins/(.*?)(?=/)", arguments.body );
 
 		var list = listRemoveDuplicates( arrayToList( dom ) );
-		var res = reReplace( list, "/plugins/", "", "ALL" )
+		var res = reReplace( list, "/wp-content/plugins/", "", "ALL" )
 
 		return listToArray( res );
 
@@ -215,10 +225,10 @@ component accessors="true"{
 	 */
 	function getThemeSlug( required string body ){
 
-		var dom = reMatchNoCase( "/themes/(.*?)(?=/)", arguments.body );
+		var dom = reMatchNoCase( "/wp-content/themes/(.*?)(?=/)", arguments.body );
 
 		var list = listRemoveDuplicates( arrayToList( dom ) );
-		var res = reReplace( list, "/themes/", "", "ALL" )
+		var res = reReplace( list, "/wp-content/themes/", "", "ALL" )
 
 		return listToArray( res ).filter( function(t) {
 			return !reFind( "[^\w-]", t )
