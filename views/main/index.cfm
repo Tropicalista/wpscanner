@@ -24,7 +24,7 @@
       <geo></geo>
     </div>
   </div>
-
+<!--
   <div class="container">
     <div class="row py-2">
       
@@ -53,5 +53,5 @@
 
     </div>
   </div>
-
+-->
 </cfoutput>

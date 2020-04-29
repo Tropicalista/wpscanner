@@ -24,7 +24,7 @@ component accessors="true"{
 
 		var req = makeRequest( arguments.aUrl );
 		var res = {
-			baseUrl = req.getRequest().getFullUrl()
+			baseUrl = reReplace( req.getRequest().getFullUrl(), "/$", "" )
 		};
 		
 		res.headers = req.getHeaders();
@@ -32,7 +32,7 @@ component accessors="true"{
 		if( req.isSuccess() ){
 
 			// parse to get theme slug
-			res.theme.baseUrl = req.getRequest().getFullUrl()
+			res.theme.baseUrl = req.getRequest().getFullUrl() 
 			res.theme.slug = getThemeSlug( req.getData() );
 			res.theme.themePath = getCSSpath( req.getData() ); // try to get the path of the theme
 			res.plugins = getPluginsSlug( req.getData() );
